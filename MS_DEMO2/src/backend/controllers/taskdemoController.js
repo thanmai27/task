@@ -39,7 +39,7 @@ async function validate_Task(Taskdemo) {
 }
 
 router.get('/totaltasks', async(req, res) => {
-    await Taskchanges.find().countDocuments(function(err, doc){
+    await Taskdemo.find().countDocuments(function(err, doc){
         console.log("Number of docs: ", doc );
         if(!err)
         {
