@@ -88,7 +88,7 @@
                     <div class="col-md-8">
 
                         <select id="projectLead" class="form-control" #projectLead="ngModel" name="projectLead" [(ngModel)]="projectmodel.projectLead"  required>
-                            <option id="{{user._id}}"*ngFor="let user of userService.users"   [value]="user._id"  [hidden]="(user.role=='Member'?true:false && user.isactive == true? true: false) || user.isExisitngMember==true?true:false" >{{user.name}}</option>
+                            <option id="{{user._id}}" *ngFor="let user of userService.users"  [value]="user._id"  [hidden]="(user.role=='Member'?true:false && user.isactive == true? true: false) " >{{user.name}}</option>
 
                           <!-- <option id="{{user._id}}"*ngFor="let user of userService.users"   [value]="user._id"  [hidden]="user.role=='Member'?true:false ||  user.isExisitngMember==true?true:false ||user.enableOrDisable==true?true:false " >{{user.name}}</option> -->
                         </select>

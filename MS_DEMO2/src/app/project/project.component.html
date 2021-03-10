@@ -20,13 +20,13 @@
                             <tr *ngFor="let project of projectService.projects">
                                 <td>{{project.projectName}}</td>
                                 <td>{{project.projectState}}</td>
-                                <td>{{project.projectLead==undefined?'NA':project.projectLead[0].name}}</td>
+                                <td>{{project.projectLead==null?'NA':project.projectLead}}</td>
                                 <td>{{project.createdOn |date:'medium' }}</td>
                                 <td>
-                                    <button [hidden]="project.projectLead==null?true:false" [disabled]="project.projectState=='completed' || project.projectState=='cancelled'?true:false" class="btn btn-primary" style="background-color: rgb(211, 21, 211);width: 80px;border: transparent;margin-left: 3px;"
+                                    <button [hidden]="project.projectLead==null?true:false"  value = "EDIT"  [disabled]="project.projectState=='completed' || project.projectState=='cancelled'?true:false" class="btn btn-primary" style="background-color: rgb(211, 21, 211);width: 80px;border: transparent;margin-left: 3px;"
                                         (click)="fn_Edit(project)"> Edit</button>
 
-                                    <button [hidden]="project.projectLead==null?false:true" id="{{project._id}}" class="btn btn-warning" style="background-color: rgb(250, 81, 109);width: 80px;border: transparent;margin-left: 3px" (click)="fn_Map(project)"> Map</button>
+                                    <button [hidden]="project.projectLead==null?false:true"  value = "MAP"  id="{{project._id}}" class="btn btn-warning" style="background-color: rgb(250, 81, 109);width: 80px;border: transparent;margin-left: 3px" (click)="fn_Map(project)"> Map</button>
 
                                     <button [disabled]="project.projectLead==null?true:false" class="btn btn-success" style="width: 80px;border: transparent;margin-left: 3px" (click)="fn_View(project)"> View</button>
 
@@ -87,11 +87,24 @@
                     </div>
                     <div class="col-md-8">
 
-                        <select id="projectLead" class="form-control" #projectLead="ngModel" name="projectLead" [ngModel]="projectmodel.projectLead.name " required>
-                            <option id="{{user._id}}"*ngFor="let user of teamleadList"   [value]="user._id"  [hidden]="" >{{user.name}}</option>
+                        <select id="projectLead" class="form-control"  name="projectLead" [(ngModel)]="projectmodel.projectLead" required>
+                            <option *ngFor="let user of teamleadList"  [value]="btnValue=='MAP'?user._id:user.UserId"  [hidden]=""  >{{user.name}}</option>
 
-                          <!-- <option id="{{user._id}}"*ngFor="let user of userService.users"   [value]="user._id"  [hidden]="user.role=='Member'?true:false ||  user.isExisitngMember==true?true:false ||user.enableOrDisable==true?true:false " >{{user.name}}</option> -->
-                        </select>
+                        </select> 
+
+                        <!-- <select id="projectLead" class="form-control"  name="projectLead" [(ngModel)]="projectmodel.projectLead[0]" required>
+                            <ng-container *ngFor="let user of teamleadList">
+                                                       
+                             <option  *ngIf="btnValue=='MAP'" [value]="user._id"    >{{user.name}}</option>
+                             <option  *ngIf="btnValue!='MAP'" [value]="user.UserId"   >{{user.name}}</option>
+                            
+                            </ng-container>
+                            
+                        </select> -->
+
+                  
+
+                        
 
                     </div>
                 </div><br>
@@ -111,15 +124,10 @@
                     </div>
                     <div class="col-md-8">
 
-                        <mat-select #select style="width: 100%; " multiple id="projectMembers " class="form-control " #projectMembers="ngModel" name="projectMembers " [(ngModel)]="projectmodel.projectMembers "   required>
-                            <mat-option #matoption id="{{user.UserId}}" *ngFor="let user of teammemberList" [hidden]=" " [value]="user.UserId" (click)="Fn_Member($event,matoption)">{{user.name}}</mat-option>
+                        <mat-select #select style="width: 100%; " multiple  id="id " class="form-control " #projectMembers="ngModel" name="projectMembers " [(ngModel)]="projectmodel.projectMembers "   required>
+                            <mat-option #matoption  *ngFor="let user of teammemberList" [hidden]=" "  [value]="btnValue=='MAP'?user._id:user.UserId"   (click)="Fn_Member($event,matoption)">{{user.name}}</mat-option>
                         </mat-select>
-                        <!-- <mat-select style="width: 100%; " multiple id="projectMembers " class="form-control " #projectMembers="ngModel" name="projectMembers " [(ngModel)]="projectmodel.projectMembers " required>
-                            <mat-option id="{{user._id}}" *ngFor="let user of userService.users" [hidden]="user.role=='Team Lead' ?true:false || (user.isExisitngMember==true?true:false ) ||user.enableOrDisable==true?true:false " [value]="user.name">{{user.name}}</mat-option>
-                        </mat-select> -->
-                        <!-- <input type="text" id="txt_members" class="form-control" name="projectMembers" #projectMembers="ngModel" [(ngModel)]="projectmodel.projectMembers"> -->
-                        <!-- <ng-multiselect-dropdown [data]="dropdownList" [(ngModel)]="projectmodel.projectMembers" [ngModelOptions]="{standalone: true}" [settings]="dropdownSettings">
-                        </ng-multiselect-dropdown> -->
+ 
                     </div>
                 </div><br>
 

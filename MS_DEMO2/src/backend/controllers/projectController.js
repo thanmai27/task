@@ -198,7 +198,7 @@ router.put('/:id',async (req, res) => {
                     // console.log(x.members[i].UserId);
                     response = await User.findByIdAndUpdate({ _id: x._id }, { $set: { "isactive": true } }) //.then(ress => {
                     temp2 = response;
-                    console.log('Resp', response);
+                    // console.log('Resp', selection);
                     for(let j =0; j< selection.length; j++){
                     // console.log('This is internal Select' , selection[j].isSelected);
                         if(selection[j].isSelected == false){

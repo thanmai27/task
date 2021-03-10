@@ -69,59 +69,76 @@ constructor(public userService: UserManagementService,public projectService:Proj
 
   }
 
+  // fn_AssignExistienceProjectMember(type,Project){
+  //   try{
+  //     //setTimeout(()=>{
+  //       this.userService.users.forEach(obj => {
+  //         let value= this.projectService.projects.filter(ele=>((ele.projectLead||ele.projectMembers)==obj.name || ele.projectMembers.includes(obj.name)) && ele.projectState =="started")
+
+  //       if(type && type==MAP ){
+  //         if(value && value.length!=0){
+  //           obj.isExisitngMember = true;
+  //         }else{
+  //           obj.isExisitngMember = false;
+  //         }
+  //         obj.enableOrDisable=false;
+
+  //       }else{
+  //         //if(value && value.length!=0 ){
+  //           let value1= this.projectService.projects.filter(ele=>((ele.projectLead||ele.projectMembers)==obj.name || ele.projectMembers.includes(obj.name))&& ele.projectState =="started" &&ele.projectName==Project.projectName);
+  //           if(value1.length==0){
+  //             obj.enableOrDisable=true;
+
+  //           }else{
+  //             obj.enableOrDisable=false;
+  //           }
+  //         // }
+  //         obj.isExisitngMember = false;
+  //       }
+
+
+
+  //       });
+  //    // },1000)
+  //   }catch(e){
+  //     console.log(e)
+  //   }
+   
+
+
+  // }
+
+
   fn_AssignExistienceProjectMember(type,Project){
-    debugger;
-    let mem;
-    try{
-      for(let i =0;i<Project.projectMembers.length;i++)
-          {
-            console.log(Project.projectMembers[i].name)
-            mem =Project.projectMembers[i].name
-          }
-      //setTimeout(()=>{
-        this.userService.users.forEach(obj => {
-       
-          let value= this.projectService.projects.filter(ele=>((ele.projectLead||mem)==obj.name || mem.includes(obj.name)) && ele.projectState =="started")
-
-        if(type && type==MAP ){
-          if(value && value.length!=0){
-            obj.isExisitngMember = true;
-          }else{
-            obj.isExisitngMember = false;
-          }
-          obj.enableOrDisable=false;
-
-        }else{
-          //if(value && value.length!=0 ){
-            let value1= this.projectService.projects.filter(ele=>((ele.projectLead||mem)==obj.name ||mem.includes(obj.name))&& ele.projectState =="started" &&ele.projectName==Project.projectName);
-            if(value1.length==0){
-              obj.enableOrDisable=true;
-
-            }else{
-              obj.enableOrDisable=false;
-            }
-          // }
-          obj.isExisitngMember = false;
-        }
 
 
-
-        });
-     // },1000)
-    }catch(e){
-      console.log(e)
-    }
-    // this.projectService.getProjectList().subscribe((res) => {
-    //   this.projectService.projects = res as Project[];
-
-    // });
-    // this.userService.getUserList().subscribe((res) => {
-    //   this.userService.users = res as User[];
-    //   //console.log("User refresh",res)
-
-    // });
+  // this.userService.users.filter((obj) => {console.log(this.projectService.projects[1].projectMembers.includes(obj.name))})
+  this.projectService.projects.filter((ele)=>{console.log(ele)});
+  
+  this.userService.users.forEach((obj)=>{console.log(obj.name,obj._id)})
 
 
+// for(let i=0;i<this.userService.users.length;i++)
+// {
+//  let  p = this.userService.users[i]._id;
+//  let q;
+
+//     for(let j=0;j<this.projectService.projects.length;j++)
+//     {
+//       q = this.projectService.projects[j].projectLead[0];
+//       console.log("asddsad",q.name,q.UserId);
+
+//       if(q.UserId==p)
+//       {
+//         console.log(true);
+//         this.usermodel.isExisitngMember = true;
+//         this.usermodel.enableOrDisable=false;
+
+        
+//       }
+      
+//     }
+// }
   }
   fn_ResetForm(form?:NgForm)
 {
@@ -134,7 +151,7 @@ constructor(public userService: UserManagementService,public projectService:Proj
       createdOn:null,
       selectDate:null,
       projectLead:null,
-      projectMembers:'',
+      projectMembers:[],
       ismap:false,
       usrSelection:[]
       // usrId:'',
@@ -332,12 +349,11 @@ console.log("project map",project)
 fn_Edit(project:Project)
 {
   setTimeout(()=>{      window.scrollTo(0, 500);    },100)
-console.log(project);
 
-
+debugger
 this.prjMmbrDrpDwnBind =project.projectMembers;
 
-console.log(this.prjMmbrDrpDwnBind);
+// console.log(this.prjMmbrDrpDwnBind);
 
 
   // this.usermodel.isExisitngMember = true;
@@ -381,6 +397,8 @@ let members:any = this.projectmodel.projectMembers;
 
 
 }
+
+
 
 }
 

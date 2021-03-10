@@ -28,6 +28,12 @@ export class ProjectComponent implements OnInit {
   project:Project[];
   teamleadList:any=[];
   teammemberList:any=[];
+  arr:any = [];
+  uId:any;
+isChecked:any;
+
+  teamleadoption:any;
+  teamemberoption:any;
   member;
   dtOptions: DataTables.Settings = {};
   
@@ -35,7 +41,7 @@ export class ProjectComponent implements OnInit {
   dropdownList :any= [];
   selectedItems = [];
   dropdownSettings = {};
-  
+  btnValue:any;
   
   
   projectmodel = new Project();
@@ -78,7 +84,7 @@ export class ProjectComponent implements OnInit {
         createdOn:null,
         selectDate:null,
         projectLead:null,
-        projectMembers:'',
+        projectMembers:[],
         ismap:null,
         usrSelection:[]
         // usrId:'',
@@ -131,13 +137,17 @@ export class ProjectComponent implements OnInit {
         console.log(this.projectmodel)
       }
   
+  
       if (form.value._id == undefined || form.value._id == '' )
       {
         this.projectmodel = form.value;
   
-  
+        this.projectmodel.usrSelection = this.arr;
+
         this.projectService.postProject( this.projectmodel).subscribe((data) => {
           this.fn_ResetForm();
+          this.arr = [];
+
           this.fn_RefreshProjectList();
           console.log("The data is", data);
           this.toastr.success("Project Added Successguuly", "Your Request has sent !!!",
@@ -163,7 +173,8 @@ export class ProjectComponent implements OnInit {
       {
   
           this.projectmodel.selectDate = this.currentDate;
-  
+          this.projectmodel.usrSelection = this.arr;
+
           this.projectService.putProject( this.projectmodel).subscribe((res) => {
             console.log(res);
             this.fn_RefreshProjectList();
@@ -176,6 +187,8 @@ export class ProjectComponent implements OnInit {
   
               })
               this.fn_ResetForm();
+              this.arr = [];
+
               this.fn_RefreshProjectList();
           },
             (error) => {
@@ -207,10 +220,12 @@ export class ProjectComponent implements OnInit {
   fn_Map(project:Project)
   {
     setTimeout(()=>{      window.scrollTo(0, 500);    },100);
+   this.btnValue= $('.btn-warning').val();
+
+    console.log("  this.btnValue",  this.btnValue)
 
     debugger;
     // this.usermodel.isExisitngMember = false;
-    this.isEditOrMap=false;
   
     this.projectmodel = project;
   
@@ -227,8 +242,8 @@ export class ProjectComponent implements OnInit {
       for(let i=0;i<res.length;i++)
       {
         this.teamleadList.push(res[i]);
-        console.log(this.teamleadList);
-        this.projectmodel.projectMembers =    this.teamleadList
+        console.log("this.teamleadList",this.teamleadList);
+        this.projectmodel.projectLead = res[i];
         
       }
       console.log("project map",this.projectmodel)
@@ -241,6 +256,7 @@ export class ProjectComponent implements OnInit {
       
       for(let i=0;i<res.length;i++)
       {
+        
         this.teammemberList.push(res[i]);
         console.log(this.teammemberList);
         this.projectmodel.projectMembers = this.teammemberList;
@@ -254,30 +270,32 @@ export class ProjectComponent implements OnInit {
   
   fn_Edit(project:Project)
   {
-   console.log(project);
-   this.teamleadList=[];
+    this.btnValue =''
+    console.log("project",project);
+     this.teamleadList=[];
    this.teammemberList=[];
+   this.btnValue= $('.btn-primary').val();
+
    
     setTimeout(()=>{ window.scrollTo(0, 500);    },100)
     this.projectmodel = project;
+    console.log("projectmodel",project);
+
     
 
-    for(let i =0;i<project.projectLead.length;i++)
+
+     this.teamleadList  =    project.projectLead;
+     this.projectmodel.projectLead =this.teamleadList[0].UserId
+
+    this.teammemberList = project.projectMembers;
+    console.log();
+    this.projectmodel.projectMembers = [];
+    for(let i=0;i< this.teammemberList.length;i++ )
     {
-      this.teamleadList.push(project.projectLead[i]);
-      this.projectmodel.projectLead = this.teamleadList;
-    }
-    for(let i =0;i<project.projectMembers.length;i++)
-    {
-      this.teammemberList.push(project.projectMembers[i]);
-      console.log(  "  this.teammemberList",this.teammemberList);
-      
-      this.projectmodel.projectMembers = this.teammemberList;
+      this.projectmodel.projectMembers.push(this.teammemberList[i].UserId)
 
     }
-    
-    
-  
+
     this.hide=true;
     this.show = true;
     this.view= false;
@@ -293,8 +311,23 @@ export class ProjectComponent implements OnInit {
   
   Fn_Member(event,opt)
 {
-console.log(opt.id + "," +opt.selected);
+  debugger;
+console.log(opt.value+ ","+ opt.selected);
+this.uId = opt.value;
+this.isChecked=opt.selected;
+
+let _model:any ={
+  usrId: this.uId,
+  isSelected: this.isChecked
+};
+// arr.push(_model);
+ this.arr.push(_model);
 
  }
 
+ 
+ gotit(name:string) {
+  //Use it from hare 
+  console.log(name);
+  }
 }
