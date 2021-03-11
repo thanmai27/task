@@ -29,6 +29,7 @@ export class LoginComponent implements OnInit {
   constructor(private authservice:AuthService,private msalService: MsalService) { }
 
   ngOnInit() {
+    $(document).attr("title", "TaskAssigner - Login");
 
   
     let ran = Math.round((Math.random() * 6) + 1)

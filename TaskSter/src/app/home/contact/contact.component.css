@@ -1,0 +1,25 @@
+div{
+  background-color: white;
+  margin-top: 4px;
+}
+
+.card{
+  margin-left: 20%;
+  max-width: 80%;
+}
+
+#btn_Save
+{
+ width:8%;
+ margin-left:40% ;
+ margin-top:1%;
+}
+
+#btn_Cancel
+{
+ margin-top:1%;
+margin-left:2% ;
+ width:8%;
+
+
+}

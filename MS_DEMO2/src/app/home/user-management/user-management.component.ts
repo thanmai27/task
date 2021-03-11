@@ -33,6 +33,7 @@ export class UserManagementComponent implements OnInit {
   constructor(public userService: UserManagementService, private toastr: ToastrService) { }
 
   ngOnInit() {
+    $(document).attr("title", "TaskAssigner - User");
 
     this.Fn_refreshUserList();
     this.Fn_resetForm();

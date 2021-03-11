@@ -1,0 +1,147 @@
+#main
+{
+  width:50%;
+  margin:5% 60% 0% 35%;
+  border:2px solid #fcfcfc2a;
+  /* padding-bottom: 6%; */
+  /* background-color:#fcfcfc2a; */
+   background-color: rgba(255, 248, 220, 0.801);
+}
+
+.back
+{  padding: 2%;
+
+  height: 100vh;
+  width: 100vw;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+button
+{
+  margin-left: 15%;
+  width:75%;
+border-radius: 20px;
+margin-right:10%;
+margin-bottom: 5%;
+}
+
+.form-control
+{
+  width: 80%;
+  margin-left: 15%;
+  margin-top: 15%;
+  border-radius: 30px;
+  margin-right:8%
+}
+
+.help-block
+{
+  color: red;
+  margin: 0
+
+
+}
+
+@media only screen and (max-width: 800px)
+{
+
+  button
+{
+  margin-left:8%;
+}
+
+.form-control
+{
+  width:80%;
+  margin-left: 8%;
+  margin-top: 10%;
+}
+
+}
+html,
+body {
+    height: 100%;
+    width:100%;
+}
+.card-3 .card-heading {
+  
+  display: table-cell;
+  width: 50%;
+
+}
+
+/* .card-3  {
+   background: linear-gradient(to left, #daac95fa 50%,transparent 50%); 
+ 
+} */
+
+
+
+.card-3 .card-body {
+  background: url("/assets/images/laptop-bg.png") top left/cover no-repeat;
+
+ /* background-size: cover; */
+  /* padding: 57px 65px;
+  padding-bottom: 65px; */
+  display: table-cell;
+
+}
+.card-3 {
+   
+  border-radius: 10px;
+
+  width: 100%;
+  display: table;
+}
+.hide-md-lg {
+  display: none;
+}
+.vl-innertext {
+  position: absolute;
+  top: 50%;
+  transform: translate(-58%, -50%);
+  background-color: #cf9311;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  padding: 9px 10px;
+  
+}
+.vl {
+  border-left: 7px solid #f6e192;
+  height: 284px;
+  position: absolute;
+  left: 51%;
+  margin-left: -3px;
+  top: 0;
+}
+.fb {
+  background-color: #102758;
+  color: white;
+  width: 100%;
+  padding: 12px;
+  border: 1px solid;
+  border-radius: 36px;
+  margin: 0 auto 15px;
+  opacity: 95.85;
+  display: block;
+  font-size: 1.0em;
+  line-height: 20px;
+  width: 89%;
+  color: white;
+  text-decoration: solid;
+  left: 1px;
+  font-family: 'Open sans',sans-serif;
+  padding: 8px 12px;
+
+  border-color: black;
+}
+.text-center{
+  text-align: center!important;
+}
+.w-100 {
+  width: 100%!important;
+}
+p {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}

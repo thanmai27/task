@@ -1,0 +1,303 @@
+<button id="show_content"  mat-raised-button color="accent" style="margin-left:20%;margin-top: 2%;" (click)="Fn_AddTask()">Add Task </button>
+<button class="btn btn-primary" style="margin-left:1%;" title="download taskdetails" (click)="fn_Download()"><i class="fa fa-download" aria-hidden="true"></i></button>
+
+
+
+<div class="container-fluid" style="margin-top: 2%;">
+    <div class="row" >
+        <div class="col-12">
+            <div class="card" id="table-content">
+
+                <!-- /.card-header -->
+                <div class="card-body" style="    background-image: linear-gradient(to right, #ffaabd,#c9ffbf);
+                ">
+                    <table id="tabledata"  class="card-table table" >
+                        <thead>
+                            <tr>
+                                <th>Task Id</th>
+                                <th>Task Name</th>
+                                <th>Assign To</th>
+                                <th>Current Status</th>
+                                <th>Project Name</th>
+                                <th>Created By</th>
+                                <th>Created On</th>                           
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let task of taskService.tasks;let indexOfelement=index;">
+                                <td>{{task._id}}</td>
+                                <td>
+                                    <p class="tip">{{ (task.taskName.length > 6) ? (task.taskName | slice:0:6) + '...' : task.taskName }}<span>{{task.taskName}}</span></p>
+
+                                </td>
+                                <td>{{task.teamMember}}</td>
+                                <td>{{task.taskStatus}}</td>
+
+                                <td>{{task.projectName}}</td>
+                             
+                          <!-- <td title="{{task.taskName}}"> {{ (task.taskName.length > 10) ? (task.taskName | slice:0:6) + '...' : task.taskName }}</td>      -->
+                               <td>{{task.createdBy}}</td>
+
+                                <td>{{task.createdOn|date:'medium'}}</td>
+                                <td>
+
+                                    <!-- <button id="btnedit" [disabled]="task.taskStatus=='Completed'||task.taskStatus=='Cancelled'" class="btn btn-primary" style="background-color: rgb(211, 21, 211);width: 80px;border: transparent;margin-left: 3px;" (click)="fn_Edit(task)"> Edit</button>
+
+                                    <button class="btn btn-success" style="width: 80px;border: transparent;margin-left: 3px" (click)="fn_View(task)"> View</button> -->
+
+                                    <button mat-icon-button id="btnedit"  [disabled]="task.taskStatus=='Completed'||task.taskStatus=='Cancelled'"   (click)="fn_Edit(task)"><mat-icon style="color: rgb(230, 64, 64)"> create</mat-icon></button>
+                                    <button mat-icon-button id="btnview"  (click)="fn_View(task)"><mat-icon style="color:green;">visibility
+                                    </mat-icon></button>
+                                </td>
+
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+
+
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</div>
+
+<form  #myform="ngForm" ngNativeValidate>
+
+    <div *ngIf="show">
+
+        <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="taskmodel._id">
+
+        <div id="hide_content" class="card">
+
+            <div id="cardone" class="card-body">
+                <h2 style="margin-left: 40%;">Add Task</h2>
+                <hr class="new5">
+
+                <div class="row" id="row1">
+                    
+                    <div class="col-md-2">
+                        <label>Project<span style="color: red;">*</span></label>
+                    </div>
+                    <div class="col-md-4" class="projectname" >
+                        <mat-form-field appearance="fill" >
+                            <mat-label>select Project</mat-label>
+
+                            <mat-select name="projectName" [(ngModel)]="taskmodel.projectName" [disabled]="pp" required>
+                                <mat-option  *ngFor="let project of projectService.projects" [value]="project.projectName"  (click)="fn_Select(project._id)" >
+                                    {{project.projectName }}
+                                </mat-option>
+                                
+                            </mat-select>
+                            <mat-error *ngIf="projectControl.hasError('required')">Please choose a project</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-2">
+                        <label>Team Memeber<span style="color: red;">*</span></label>
+                    </div>
+                    <div class="col-md-4">
+                        <mat-form-field appearance="fill">
+                            <mat-label>select TeamMember</mat-label>
+
+                            <mat-select name="teamMember" [(ngModel)]="taskmodel.teamMember"   required>
+                                <mat-option *ngFor="let member of teamMember" [(value)]="member">
+                                    {{member}}
+                                </mat-option>
+
+                            </mat-select>
+                            <mat-error *ngIf="projectControl.hasError('required')">Please choose a TeamMember</mat-error>
+
+                        </mat-form-field>
+
+                   
+                    </div>
+                </div>
+
+                <div class="row" id="row2">
+                    <div class="col-md-2">
+                        <label>created By<span style="color: red;">*</span></label>
+
+                    </div>
+                    <div class="col-md-4">
+
+                        <mat-form-field appearance="fill">
+                            <mat-label>created by</mat-label>
+<!-- 
+                            <mat-select name="createdBy" [(ngModel)]="taskmodel.createdBy"   required>
+                                <mat-option *ngFor="let members of createdMember" [(value)]="members">
+                                    {{members}}
+                                </mat-option>
+
+                            </mat-select> -->
+                            <input type="text" matInput  name="createdBy" value="{{createdmemeber}}" readonly >
+
+                        </mat-form-field>
+                
+                    </div>
+
+                    <!-- <div class="col-md-2">
+                        <label>Modified By</label>
+
+                    </div>
+                    <div class="col-md-4">
+           
+
+                        <mat-form-field appearance="fill">
+                            <mat-label>modified by</mat-label>
+
+                            <mat-select name="modifiedBy" [disabled]="!pp" [(ngModel)]="taskmodel.modifiedBy"  >
+                                <mat-option *ngFor="let members of modifiedMember" [(value)]="members">
+                                    {{members}}
+                                </mat-option>
+
+                            </mat-select>
+
+                        </mat-form-field>
+                    </div> -->
+                </div>
+           
+                <div class="row" id="row3">
+                    <div class="col-md-2">
+                        <label>Status<span style="color: red;">*</span></label>
+                    </div>
+                    <div class="col-md-4">
+                      
+
+                        <mat-form-field appearance="fill">
+                            <mat-label>select Status</mat-label>
+                            <mat-select [(value)]="selected"(selectionChange)="fn_Change2($event.value)" >
+                              <!-- <mat-option disabled>{{taskmodel.taskStatus}}</mat-option> -->
+                              
+                              <mat-option  id="{{option}}"[value]="option"  *ngFor="let option of options" [disabled]="selected === option" >{{ option }}</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+
+                    </div>
+                    <div class="col-md-2" *ngIf="this.isAssign" >
+                        <label>Assign Date <span style="color: red;">*</span></label>
+                    </div>
+                    <div class="col-md-4" *ngIf="this.isAssign" >
+                        <mat-form-field color="accent" appearance="fill" >
+                            <mat-label>select assign date</mat-label>
+
+                            <input id="assignOn" type="datetime-local" step=".1" matInput  name="assignOn"  [min]="myDate" [readonly]="isReadOnly" [ngModel]="taskmodel.assignOn|date:'yyyy-MM-ddTHH:mm:ss'"(ngModelChange)="taskmodel.assignOn= $event" [required]="selected == 'Assign'" >
+                        </mat-form-field>
+
+                    </div>
+                </div>
+
+                <div class="row" id="row4" >
+                    <div class="col-md-2" *ngIf="this.isStart">
+                        <label>Start Date <span style="color: red;">*</span></label>
+                    </div>
+                    <div class="col-md-4" *ngIf="this.isStart">
+                        <mat-form-field color="accent" appearance="fill">
+                            <mat-label>select Start date</mat-label>
+
+                            <input matInput  type="datetime-local" step=".1" id="startOn"#startOn="ngModel" name="startOn" [readonly]="startReadOnly"  [ngModel]="taskmodel.startOn|date:'yyyy-MM-ddTHH:mm:ss'"(ngModelChange)="taskmodel.startOn= $event" [required]="selected == 'Started'">
+                           
+                        </mat-form-field>
+                        <mat-error *ngIf="startOn.hasError('required')">Please choose a date</mat-error>
+                         <input type="hidden" name="holdOn" #holdOn="ngModel" [(ngModel)]="taskmodel.holdOn">
+                    </div>
+                  
+                    <div class="col-md-2" *ngIf="this.isEnd">
+                        <label>End Date <span style="color: red;">*</span></label>
+                    </div>
+                    <div class="col-md-4" *ngIf="this.isEnd">
+                        <mat-form-field color="accent" appearance="fill">
+                            <mat-label>select end date</mat-label>
+
+                            <input  matInput type="datetime-local"  step=".1" id="endOn" name="endOn" #endOn="ngModel"  [readonly]="endReadOnly" [ngModel]="taskmodel.endOn|date:'yyyy-MM-ddTHH:mm:ss'"(ngModelChange)="taskmodel.endOn= $event" [required]="selected == 'Completed'||'ON hold'">
+                            
+                        </mat-form-field>
+                        <mat-error *ngIf="endOn.hasError('required')">Please choose a  date</mat-error>
+
+                    </div>
+                </div>
+
+                <div class="row" id="row5" >
+                    <div class="col-md-2" *ngIf="this.isCancel">
+                        <label>Cancelled Date<span style="color: red;">*</span></label>
+                    </div>
+                    <div class="col-md-4" *ngIf="this.isCancel">
+                        <mat-form-field color="accent" appearance="fill">
+                            <mat-label>select Cancel date</mat-label>
+
+                            <input matInput  type="datetime-local" step=".1" id="cancelledOn"#cancelledOn="ngModel" name="cancelledOn" [readonly]="cancellReadOnly"  [ngModel]="taskmodel.cancelledOn|date:'yyyy-MM-ddTHH:mm:ss'"(ngModelChange)="taskmodel.cancelledOn= $event" [required]="selected == 'Cancelled'">
+                           
+                        </mat-form-field>
+                        <mat-error *ngIf="cancelledOn.hasError('required')">Please choose a date</mat-error>
+                         <input type="hidden" name="holdOn" #holdOn="ngModel" [(ngModel)]="taskmodel.holdOn">
+                    </div>
+
+                   
+                    <!--  -->
+                    
+                    <!-- <div class="col-md-2" *ngIf="this.isHold">
+                        <label>ON hold<span style="color: red;">*</span></label>
+                    </div>
+                    <div class="col-md-4" *ngIf="this.isHold">
+                        <mat-form-field color="accent" appearance="fill">
+                            <mat-label>select  date</mat-label>
+
+                            <input matInput  type="datetime-local" step=".1" id="holdOn"#holdOn="ngModel" name="holdOn" [readonly]="holdReadOnly"  [ngModel]="taskmodel.holdOn|date:'yyyy-MM-ddTHH:mm:ss'"(ngModelChange)="taskmodel.holdOn= $event" [required]="selected == 'ON hold'">
+                           
+                        </mat-form-field>
+                        <mat-error *ngIf="holdOn.hasError('required')">Please choose a date</mat-error>
+                    </div> -->
+               
+                    <!--  -->
+                </div>
+
+                <div  class="row"  >
+                    <div class="col-md-2" *ngIf="this.isCancel">
+                      <label> Reason <span style="color: red;">*</span></label>
+                  </div>
+                  <div class="col-md-10" *ngIf="this.isCancel">
+                      <mat-form-field class="example-full-width">
+                          <textarea matInput placeholder="Type here" rows="2" minlength="10" maxlength="150" [readonly]="cancellReadOnly"  name="cancelReason" #cancelReason="ngModel" [(ngModel)]="taskmodel.cancelReason"  [required]="selected == 'Cancelled'"></textarea>
+                      </mat-form-field>
+                      
+                  </div>
+               
+              </div>
+                <div  class="row" id="row6" >
+                      <div class="col-md-2">
+                        <label>Task <span style="color: red;">*</span></label>
+                    </div>
+                    <div class="col-md-10">
+                        <mat-form-field class="example-full-width">
+                            <textarea matInput placeholder="Type here" rows="2" minlength="10" maxlength="150" [disabled]="pp" name="taskName" #taskName="ngModel" [(ngModel)]="taskmodel.taskName"  required></textarea>
+                        </mat-form-field>
+                        
+                    </div>
+                 
+                </div>
+                <input type="hidden" name="statusList" #statusList="ngModel" [(ngModel)]="taskmodel.statusList">
+
+                <div style="margin-top: 2%; background-image: linear-gradient(to right, #ffaabd,#c9ffbf)" class="col-md-12  text-right">
+                    <button  style="width: 100px;" id="btn_save" class="btn btn-success" [disabled]="!myform.valid" (click)="fn_Save(myform)">Save</button> &nbsp;
+                    <button  style="width: 100px;" class="btn btn-danger" (click)="fn_Cancel(myform)">Cancel</button>
+    
+                </div>
+            </div>
+
+           
+          
+
+        </div>
+
+
+
+    </div>
+
+
+
+
+</form>

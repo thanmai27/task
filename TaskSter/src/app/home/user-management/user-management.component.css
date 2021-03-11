@@ -1,0 +1,15 @@
+div{
+  background-color: white;
+  margin-top: 4px;
+}
+
+.card{
+  margin-left: 20%;
+  max-width: 80%;
+  margin-top: 2%;
+}
+
+.help-block
+{
+    color:red;
+}

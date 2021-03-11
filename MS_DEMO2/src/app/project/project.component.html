@@ -131,18 +131,18 @@
                     </div>
                 </div><br>
 
-                <!-- <div class="row" *ngIf="hide">
+                <div class="row" [hidden]="btnValue=='MAP'?true:false" *ngIf="addmem">
                     <div class="col-md-4">
                         <label>Add Member :<span style="color: red;">*</span></label>
                     </div>
                     <div class="col-md-8">
 
                         <mat-select style="width: 100%; " multiple id="addMembers " class="form-control "    required>
-                            <mat-option id="{{user._id}}" *ngFor="let user of userService.users" [hidden]="user.role=='Team Lead'?true:false||user.isactive == false ? false: true   " [value]="user._id">{{user.name}}</mat-option>
+                            <mat-option  #matoption  *ngFor="let user of AddMemberList" [value]="btnValue=='EDIT'?user._id:user.UserId"   (click)="Fn_Member($event,matoption)" >{{user.name}}</mat-option>
                         </mat-select>
                         
                     </div>
-                </div> <br> -->
+                </div> <br> 
 
                 <input type="hidden" name="ismap" #ismap="ngModel" [(ngModel)]="projectmodel.ismap">
 

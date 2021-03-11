@@ -1,0 +1,22 @@
+.card {
+    margin-left: 22%;
+    max-width: 75%;
+}
+
+div {
+    background-color: white;
+    margin-top: 4px;
+}
+
+.help-block {
+    color: red;
+}
+
+table {
+    width: 100%;
+}
+
+.mat-form-field {
+    font-size: 14px;
+    width: 100%;
+}

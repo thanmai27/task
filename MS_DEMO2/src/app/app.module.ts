@@ -68,57 +68,16 @@ import { ProjectComponent } from './project/project.component';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,ReactiveFormsModule,
-    ToastrModule.forRoot(),
-    ToastrModule.forRoot({
-  
-      preventDuplicates: true,
-    }),
+    ToastrModule.forRoot({preventDuplicates: true}),
     DataTablesModule,
     NgMultiSelectDropDownModule.forRoot(),
     NgSelectModule,
     QRCodeModule,
 
     ConfirmationPopoverModule.forRoot({
-      confirmButtonType: 'danger', // set defaults here
+      confirmButtonType: 'danger', 
     }),
-    RouterModule.forRoot([
 
-
-      {path:'', component:LoginComponent},
-
-      {path:'dashboard',component:HomeComponent,canActivate:[AuthGuard],
-    children : [{ path : '' , component :DashboardComponent},
-  ]
-    },
-      {path:'contact',component:HomeComponent,canActivate:[AuthGuard],
-    children:[{path:'',component:ContactComponent}]},
-
-    {path:'usermanagement',component:HomeComponent,canActivate:[AuthGuard],
-    children:[{path:'',component: UserManagementComponent}]},
-
-    {path:'projectmanagement',component:HomeComponent,canActivate:[AuthGuard],
-    children:[{path:'',component:ProjectmanagementComponent}]},
-
-    {path:'taskmanagement',component:HomeComponent,canActivate:[AuthGuard],
-    children:[{path:'',component:TaskmanagementComponent}]},
-
-    {path:'tasks',component:HomeComponent,canActivate:[AuthGuard],
-    children:[{path:'',component:TasksComponent}]},
-
-
-      {path:'upload', component:BlobComponent},
-      {path:'table', component:TableComponent},
-      {path:'verify', component:LoadingComponent},
-      {path:'logout', component:LogoutComponent},
-      {path:'project',component:ProjectComponent}
-
-
-
-
-
-
-
-    ]) ,
     MsalModule.forRoot({
       auth: {
         clientId: OAuthSettings.clientId,

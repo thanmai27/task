@@ -18,6 +18,8 @@ export class LoadingComponent implements OnInit {
 
   ngOnInit() {
 
+    $(document).attr("title", "TaskAssigner - verify");
+
     var btn = JSON.parse(sessionStorage.getItem('buttonValue'));
 
     this.href = this.router.url;

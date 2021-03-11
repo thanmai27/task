@@ -146,7 +146,8 @@ router.get('/:id', async(req, res) => {
 
 
 router.put('/:id',async (req, res) => {
-    
+  
+  console.log("Thanmai !!!!!!!!!!!!!!",req.body.projectMembers)
     try {
         // let memberName;
         console.log('Sashank', req.body.projectLead);
@@ -196,7 +197,7 @@ router.put('/:id',async (req, res) => {
                 console.log('Thsi is members array ',membersArray);
                 if(req.body.ismap == true){
                     // console.log(x.members[i].UserId);
-                    response = await User.findByIdAndUpdate({ _id: x._id }, { $set: { "isactive": true } }) //.then(ress => {
+                    response = await User.findByIdAndUpdate({ _id: membersArray[i].UserId }, { $set: { "isactive": true } }) //.then(ress => {
                     temp2 = response;
                     // console.log('Resp', selection);
                     for(let j =0; j< selection.length; j++){

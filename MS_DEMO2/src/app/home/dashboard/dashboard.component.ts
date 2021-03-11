@@ -31,7 +31,7 @@ export class DashboardComponent implements OnInit {
     this.projectservice.totalCount().subscribe((result)=>this.totalProjects=result);
     this.taskservice.totalCount().subscribe((result)=>this.totalTasks=result);
 
-
+    $(document).attr("title", "TaskAssigner - Dashboard");
     
   }
 

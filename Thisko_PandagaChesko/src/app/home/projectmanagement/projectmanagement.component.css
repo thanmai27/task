@@ -1,0 +1,32 @@
+.card {
+    margin-left: 20%;
+    max-width:100%;
+}
+
+div {
+    background-color: white;
+    margin-top: 4px;
+}
+
+.help-block {
+    color: red;
+}
+
+table {
+    width: 100%;
+}
+
+.mat-form-field {
+    font-size: 14px;
+    width: 100%;
+}
+.pg-wrapper
+{
+    margin-top:6%;
+    margin-left :10%;
+    margin-right: 10%; 
+}
+th{
+    background-color:#0f4c75 ;
+  color:white;
+  }

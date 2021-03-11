@@ -20,6 +20,9 @@ export class LogoutComponent implements OnInit {
   backgroundImage: string = '';
  
   ngOnInit() {
+
+    $(document).attr("title", "TaskAssigner - Logout");
+
     let ran = Math.round((Math.random() * 6) + 1)
     // Math.round((Math.random()*100)%5);
     console.log(ran)

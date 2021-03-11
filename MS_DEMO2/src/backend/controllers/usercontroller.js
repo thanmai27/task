@@ -3,6 +3,7 @@ var router = express.Router();
 const Joi = require('joi');
 var ObjectId = require('mongoose').Types.ObjectId;
 const jwtVerify = require('../middileware/jwtVerify');
+var {Project} = require('../models/project')
 
 var { User } = require('../models/user');
 
@@ -17,7 +18,7 @@ async function validate_User(User) {
             phone: Joi.number().min(10),
             gender: Joi.string(),
             isactive: Joi.boolean(),
-            isactive: Joi.boolean(),
+            isenabled: Joi.boolean(),
 
         }
 
@@ -43,6 +44,7 @@ router.get('/leadisactive', async(req, res) => {
 })
 
 router.get('/memberisactive', async(req, res) => {
+
     await User.find({isactive:false,role:"Member"},(err, doc) => {
         if (!err) {
             res.send(doc);

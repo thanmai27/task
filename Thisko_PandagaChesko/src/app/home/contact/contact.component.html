@@ -1,0 +1,138 @@
+
+  <form #myform="ngForm" enctype="multipart/form-data" ngNativeValidate class="pg-wrapper">
+    <div class="card-header">
+      <h4   id="basic-layout-icons" style="margin-left:50%;">Contact Us</h4>
+      <hr>
+
+      <div class="card">
+        <div class="card-header">
+            <h5> &nbsp; Problem Information &nbsp;</h5>
+            <hr>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-4">
+                  <label>Type<span style="color: red;">*</span></label>
+                </div>
+                <div class="col-md-8">
+                  <select id="ddl_probtype" class="form-control"  #type="ngModel" name="type" ngModel required>
+                    <option value="1">Technical</option>
+                    <option value="2">Billing</option>
+                    <option value="3">Quota</option>
+                    <option value="4">Subscription Management</option>
+
+                </select>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <label>Severity<span style="color: red;">*</span></label>
+                </div>
+                <div class="col-md-8">
+                  <select id="ddl_probtype" class="form-control" name="severity" #severiry="ngModel" ngModel required>
+                    <option value="1">C - Minimal</option>
+                    <option value="2">B - Moderate</option>
+                    <option value="3">A - Critical</option>
+
+                </select>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <label>Subject<span style="color: red;">*</span></label>
+                </div>
+                <div class="col-md-8">
+                  <input type="text" id="txt_Subject" class="form-control" name="subject" #subject="ngModel" placeholder="Subject (Max 150 Characters)" maxlength="150" ngModel required>
+
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <label>Description<span style="color: red;">*</span></label>
+                </div>
+                <div class="col-md-8">
+                  <textarea id="txa_description" class="form-control" name="description" #description="ngModel"   rows="6" placeholder="Provide additional information about your Problem  (Max 5000 Characters)" maxlength="5000" ngModel required></textarea>
+
+                </div>
+              </div>
+            </div>
+
+        </div>
+
+      </div>
+
+      <div class="card">
+        <div class="card-header" >
+            <h5>&nbsp; Contact Information &nbsp;</h5>
+            <hr>
+
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-4">
+                    <label>Mode of Contact<span style="color: red;">*</span></label>
+                  </div>
+                  <div class="col-md-8">
+                    <select id="ddl_probtype" class="form-control"   name="modeofcontact"  #modeofcontact="ngModel" (change)=" fn_changeMandatory($event)"  ngModel required>
+                    
+                      <option value="1">Email</option>
+                      <option value="2">Phone</option>
+
+                  </select>
+                  </div>
+                </div>
+                <div class="row" >
+                  <div class="col-md-4">
+                    <label>Email id :<span *ngIf="emailshow" style="color: red;">*</span></label>
+                  </div>
+                  <div class="col-md-8">
+                    <input type="email" id="txt_EmailID" class="form-control"  name="email" #email="ngModel" placeholder="Email ID" maxlength="100" ngModel [required]="modeofcontact.value == '1'">
+
+                  </div>
+                </div>
+                <div class="row" >
+                  <div class="col-md-4">
+                    <label>Phone no :</label>
+                    <span *ngIf="phoneshow" style="color: red;">*</span>
+                  </div>
+                  <div class="col-md-8">
+                    <input type="text" id="txt_PhoneNumber" class="form-control"  name="contact" #contact="ngModel" placeholder="Phone Number" maxlength="10" ngModel  [required]="modeofcontact.value != '1'">
+
+                  </div>
+                </div>
+                 <div class="row">
+                  <div class="col-md-4">
+                    <label>CC to</label>
+                  </div>
+                  <div class="col-md-8">
+                    <input type="text" id="txt_CCEmailID" class="form-control" name="cc" #cc="ngModel"  placeholder="Who else should we email" maxlength="100" ngModel>
+
+                  </div>
+                </div>
+
+
+                <div class="row">
+                  <div class="col-md-4">
+                    <label>Select file :</label>
+                  </div>
+                  <div class="col-md-8">
+                    <input type="file" id="attachment" class="form-control"   (change)="upload($event)" name="attachment" #attachment="ngModel"  ngModel >
+
+                  </div>
+                </div>
+
+
+              </div>
+        </div>
+
+      </div>
+
+          <button type="submit" id="btn_Save"  value="Submit" (click)="Fn_Submit(myform)"  class="btn btn-success">
+         Submit
+    </button>
+    <button type="button" id="btn_Cancel"  value="Cancel" (click)="Fn_Clear(myform)" class="btn btn-warning ">
+      Reset
+    </button>
+  </div>
+
+  </form>
+
+

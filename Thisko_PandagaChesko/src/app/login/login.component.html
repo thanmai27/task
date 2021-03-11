@@ -1,0 +1,60 @@
+  <div class="back">
+
+
+  <div id="main" class="card card-3">
+    <div class="card-heading">
+      <!-- <div class="vl">
+        <span class="vl-innertext">or</span>
+    </div> -->
+   
+      <form #myform="ngForm" novalidate>
+           <div id="one" class="row">
+            <input class="form-control" type="email" id="txt_Username"  placeholder="Email address"  name="email" pattern="[a-zA-Z_.\d]{7,50}@[a-z\d]{4}[.][a-z]{2}" #email ="ngModel" ngModel required><br/>
+               <span class="feedback-red"  *ngIf="email.invalid && (email.dirty || email.touched)" style="color: red; margin-left: 10%;">Username is Required...!</span> 
+          </div>
+          <div id="two"> 
+          
+            <button id="btn_ms" class="btn btn-success"  type="submit" [disabled]="email.invalid" value = "MS" (click)="Fn_Login(myform.value)">Login with
+             <span><img src="../../assets/images/ms_logo.png" height="20" /></span>
+            </button>
+          </div><br/>
+          <br/>
+          <br/>
+       <p class="w-100 text-center" style="color:black">— Or LogIn With —</p>
+          <button id="btn_fb fb" class="btn"  style="background-color: midnightblue;color: white;" value = "FB" (click)="fn_Fblogin()" >   
+            <span class="lg-innertext " style="position: relative; left: -25px;  transform: translate(-50%, -50%); background-color: transparent; border: 1px solid #ccc; border-radius: 50%; padding: 8px 9px; "><i class="fab fa-facebook fa-fw"></i></span> 
+             Login with Facebook
+          </button>  
+        </form>
+    </div>
+       <div class="card-body" >
+      <!-- <div id="two" > 
+         <h6 style="text-align: center;color: white; ">Connect With</h6>
+        <br/>
+         <button id="btn_fb fb" class="btn"  style="background-color: midnightblue;color: white;" value = "FB" (click)="fn_Fblogin()" >   <span class="lg-innertext " style="position: relative; left: -22px;  transform: translate(-50%, -50%); background-color: transparent; border: 1px solid #ccc; border-radius: 50%; padding: 8px 10px; "><i class="fab fa-facebook fa-fw"></i></span>
+          Login with Facebook
+        </button> 
+       
+            
+      </div>  -->
+
+      <!-- <p class="w-100 text-center" style="color:white">— Or LogIn With —</p>
+              <span class="lg-innertext " style="position: relative; left: -22px;  transform: translate(-50%, -50%); background-color: white; border: 1px solid #ccc; border-radius: 50%; padding: 8px 10px;color:midnightblue "><i class="fab fa-facebook fa-fw"></i></span> 
+<br/>
+<br/>
+
+      <button id="btn_fb fb" class="btn "  style="background-color: midnightblue;color: white;width:100% " value = "FB" (click)="fn_Fblogin()" >   
+      <span class="lg-innertext " style="position: relative; left: -22px;  transform: translate(-50%, -50%); background-color: transparent; border: 1px solid #ccc; border-radius: 50%; padding: 8px 10px; "><i class="fab fa-facebook fa-fw"></i></span> 
+        Login with Facebook
+      </button>  -->
+
+    </div>
+
+
+
+
+   
+
+  </div>
+
+</div>

@@ -1,0 +1,109 @@
+
+
+.card,.container {
+    margin-left: 20%;
+    max-width: 100%;
+    /* word-break: break-all; */
+
+}
+#cardone{
+    width:auto;
+   
+}
+
+#cardone.row
+{
+    background-color: #9900ff
+}
+
+div {
+    background-color: white;
+    margin-top: 4px;
+    
+
+}
+
+
+
+.help-block {
+    color: red;
+}
+
+table {
+    width: 100%;
+font-size: small;
+color: white;
+overflow: scroll;
+}
+
+/* td{
+    white-space:nowrap;
+
+
+} */
+.mat-form-field {
+    font-size: 14px;
+    width: 100%;
+    height: 20%;
+}
+
+.mat-input
+.mat-icon-button {
+    height: 40px;
+    width: 40px;
+}
+
+mat-icon {
+    color: white;
+}
+
+/* #row1,#row2,#row3,#row4,#row5,.col-md-2
+{
+    background-color: silver;
+
+}
+
+.col-md-4,.col-md-10
+{
+    background-color:#c9ffbf ;
+} */
+p.tip:hover {
+    position: relative
+}
+p.tip span {
+    display: none
+}
+p.tip:hover span {
+    background-color: rgb(47, 245, 129);
+    border: #c0c0c0 1px dotted;
+    padding: 5px ;
+    display: block;
+    left: 0px;
+    margin: 10px;
+    width: 250px;
+    position:absolute;
+    top: 10px;
+    border-radius: 10px;
+    color: black;
+
+}
+th{
+    background-color:#0f4c75 ;
+  color:white;
+  }
+#btnedit,#btnview
+{
+    background-repeat: no-repeat;
+    display: inline-block;
+    fill: transparent;
+    width: 35px;
+    border: none;outline:none;
+}
+
+
+  .pg-wrapper
+{
+    margin-top:6%;
+    margin-left :10%;
+    margin-right: 10%; 
+}

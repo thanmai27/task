@@ -1,0 +1,67 @@
+<div class="dashboard pg-wrapper">
+  <h4 style="margin-left: 20%;">
+    dash board
+  </h4>
+  <div class="container-fluid"  style="margin-left: 20%;">
+   
+    <div class="row">
+   
+      <div class="col-md-6">
+        <div class="info-box mb-3">
+          <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
+   
+          <div class="info-box-content">
+            <span class="info-box-text">Total No.of Users</span>
+            <span class="info-box-number">{{totalUsers}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+   
+    <div class="row">
+      <div class="col-md-6">
+        <div class="info-box">
+          <span class="info-box-icon bg-info elevation-1"><i class="fas fa-project-diagram"></i></span>
+   
+          <div class="info-box-content">
+            <span class="info-box-text">Total No.of Projects</span>
+            <span class="info-box-number">{{totalProjects}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+      <div class="row">
+   
+      <div class="col-md-6">
+        <div class="info-box mb-3">
+          <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-tasks"></i></span>
+   
+          <div class="info-box-content">
+            <span class="info-box-text">Total No.of Tasks</span>
+            <span class="info-box-number">{{ totalTasks}}</span>
+          </div>
+          <p>{{labels}}</p>
+        </div>
+      </div>
+      </div>
+  
+      </div>
+ 
+ <div class="col-md-6 offset-md-3">
+   <div class="card">
+     <div class="card-header">
+       <h3></h3>
+     </div>
+     <div class="card-body">
+         <canvas id="myChart" width="200" height="200"></canvas>
+ 
+     </div>
+   </div>
+ </div>
+          <!-- <canvas class="mt-5" id="myChart2" width="1200px" height="400"></canvas>
+      <canvas class="mt-5" id="myChart3" width="1200px" height="400"></canvas>  -->
+      <!-- <div id="chartContainer" style="height: 370px; width: 100%;">
+      </div> -->
+ 
+  
+</div>

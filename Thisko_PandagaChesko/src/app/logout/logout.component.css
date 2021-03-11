@@ -1,0 +1,70 @@
+#main
+{
+  width:50%;
+  margin:5% 60% 0% 35%;
+  border:2px solid #fcfcfc2a;
+  /* padding-bottom: 6%; */
+  /* background-color:#fcfcfc2a; */
+   background-color: rgba(255, 248, 220, 0.801);
+}
+ 
+.back
+{  padding: 2%;
+ 
+  height: 100vh;
+  width: 100vw;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+button
+{
+  margin-left: 20%;
+  width:60%;
+ margin-bottom: 2%;
+}
+ 
+.form-control
+{
+  width:60%;
+  margin-left: 20%;
+  margin-top: 10%;
+}
+ 
+.help-block
+{
+  color: red;
+  margin: 0
+ 
+}
+/* .button2 {
+    background-color:transparent; 
+    color: white; 
+    border: 2px solid #f44336;
+    height: 50px;
+    width: 150px;
+    margin-left: 45%;
+    margin-top: 3%;
+  } */
+  img
+  {
+      padding-top: 4%;
+      margin-left: 10%;
+      background-color: white;
+  }
+ 
+@media only screen and (max-width: 800px)
+{
+ 
+  button
+{
+  margin-left:8%;
+}
+ 
+.form-control
+{
+  width:80%;
+  margin-left: 8%;
+  margin-top: 10%;
+}
+ 
+}

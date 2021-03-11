@@ -1,0 +1,144 @@
+/* You can add global styles to this file, and also import other style files */
+
+
+
+
+html {
+    height: 100%;
+    width:100%;
+}
+body{
+margin-top:0;
+margin-left:0 ;
+margin-right:17% !important;
+overflow-x: hidden !important;
+height:100%;
+width:100%;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    background-image: no-repeat;
+    background-size: cover;
+    /* background-image: url('assets/images/web-design-bg.jpg'); */
+    
+}
+.pg-wrapper
+{
+    margin-top:6%;
+    margin-left :6%;
+    margin-right: 17%; 
+}
+#user-management.fullscreen{
+    z-index: 9999; 
+     width: 100% !important; 
+    height: 100% !important;  
+    position: fixed; 
+    /* margin:0;  */
+    background-attachment: unset;
+    
+  }
+  #user-management.fullscreen.pg-wrapper{
+    z-index: 9999; 
+   
+    margin-top: 0;
+    margin-left: 0px;
+    margin-right: 20px;
+    /* padding-block: 27px; */
+    padding-right: 53px;
+    
+  }
+  #task-management.fullscreen{
+    z-index: 9999; 
+     width: 100% !important; 
+    height: 100% !important;  
+    position: fixed; 
+    /* margin:0;  */
+    background-attachment: unset;
+    
+  }
+  #task-management.fullscreen.pg-wrapper{
+    z-index: 9999; 
+   
+    margin-top: 0;
+    margin-left: 0px;
+    margin-right: 20px;
+    /* padding-block: 27px; */
+    padding-right: 53px;
+    
+  }
+  #project-management.fullscreen{
+    z-index: 9999; 
+     width: 100% !important; 
+    height: 100% !important;  
+    position: fixed; 
+    /* margin:0;  */
+    background-attachment: unset;
+    
+  }
+  #project-management.fullscreen.pg-wrapper{
+    z-index: 9999; 
+   
+    margin-top: 0;
+    margin-left: 0px;
+    margin-right: 20px;
+    /* padding-block: 27px; */
+    padding-right: 53px;
+    
+  }
+
+  /* @media (min-width: 992px){
+  .sidebar-mini.sidebar-collapse .content-wrapper, .sidebar-mini.sidebar-collapse .main-footer, .sidebar-mini.sidebar-collapse .main-header {
+  width: 95% !important;
+  }
+  .pg-wrapper{
+    margin-top: 8% !important;
+    margin-left: 14% !important;
+  }
+}
+@media (max-width: 992px){
+  body:not(.sidebar-mini-md) .content-wrapper, body:not(.sidebar-mini-md) .content-wrapper::before, body:not(.sidebar-mini-md) .main-footer, body:not(.sidebar-mini-md) .main-footer::before, body:not(.sidebar-mini-md) .main-header, body:not(.sidebar-mini-md) .main-header::before {
+      margin-left: 0;
+      width:95%;
+    }
+    .pg-wrapper{
+      margin-top: 8% !important;
+      margin-left: 1% !important;
+    }
+  }
+  @media (max-width: 880px){
+    body:not(.sidebar-mini-md) .content-wrapper, body:not(.sidebar-mini-md) .content-wrapper::before, body:not(.sidebar-mini-md) .main-footer, body:not(.sidebar-mini-md) .main-footer::before, body:not(.sidebar-mini-md) .main-header, body:not(.sidebar-mini-md) .main-header::before {
+        margin-left: 0;
+        width:95%;
+      }
+      .pg-wrapper{
+        margin-top: 8% !important;
+        margin-left: -16% !important;
+      }
+      
+    }
+    @media (min-width: 767){
+      .pg-wrapper{
+        margin-top: 8% !important;
+        margin-left: -16% !important;
+      }
+      .card{
+        width:100%;
+      }
+    }
+    @media (max-width: 767){
+      .pg-wrapper{
+        margin-top: 8% !important;
+        margin-left: -16% !important;
+      }
+    }
+    @media (max-width: 720){
+      .pg-wrapper{
+        margin-top: 8% !important;
+        width:30%;
+      }
+    }
+@media (min-width: 380px){
+  .sidebar-mini.sidebar-collapse .content-wrapper, .sidebar-mini.sidebar-collapse .main-footer, .sidebar-mini.sidebar-collapse .main-header {
+width: 100%;
+
+  } 
+}
+*/

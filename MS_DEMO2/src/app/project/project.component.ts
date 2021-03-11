@@ -23,11 +23,14 @@ export class ProjectComponent implements OnInit {
   show=false;
   hide=false;
   view=false;
+  addmem = false;
   currentDate:Date;
   users:User[];
   project:Project[];
   teamleadList:any=[];
   teammemberList:any=[];
+  selectedMemberList:any =[];
+  AddMemberList:any =[];
   arr:any = [];
   uId:any;
 isChecked:any;
@@ -46,12 +49,13 @@ isChecked:any;
   
   projectmodel = new Project();
   usermodel = new User();
-  isEditOrMap:boolean=false;
   constructor(public userService: UserManagementService,public projectService:ProjectmanagementService,private toastr: ToastrService) { }
   
     ngOnInit()
     {
-        
+      $(document).attr("title", "TaskAssigner|Project");
+      this.addmem = false;
+
       setTimeout(function(){
         $('table').DataTable( {
         responsive: true,
@@ -120,6 +124,8 @@ isChecked:any;
       this.show = true;
       this.hide =  false;
       this.view = false;
+      this.addmem = false;
+
   
   
     }
@@ -211,11 +217,7 @@ isChecked:any;
   }
 
 
-  fn_Change(userId,userState)
-  {
-    
-  
-  }
+
   
   fn_Map(project:Project)
   {
@@ -270,8 +272,10 @@ isChecked:any;
   
   fn_Edit(project:Project)
   {
+    
+    this.addmem= true
+   // this.fn_Inactive();
     this.btnValue =''
-    console.log("project",project);
      this.teamleadList=[];
    this.teammemberList=[];
    this.btnValue= $('.btn-primary').val();
@@ -279,7 +283,6 @@ isChecked:any;
    
     setTimeout(()=>{ window.scrollTo(0, 500);    },100)
     this.projectmodel = project;
-    console.log("projectmodel",project);
 
     
 
@@ -299,15 +302,43 @@ isChecked:any;
     this.hide=true;
     this.show = true;
     this.view= false;
+
+   
   
     $("#hide_content").show(); 
+
+    this.AddMemberList = [];
+    console.log("selected:",   this.projectmodel.projectMembers);
+      this.userService.memberIsActive().subscribe((res : any) => {
+   
+          for (let i = 0; i < res.length; i++) {
+   
+
+             this.AddMemberList.push(res[i]);
+              console.log("add:"+this.AddMemberList[i]._id+this.AddMemberList[i].name);
+              
+         
+         
+        
+
+             
+            } 
+
+            this.AddMemberList = this.AddMemberList.filter((val)=>
+            {
+              return this.projectmodel.projectMembers.indexOf(val._id) == -1
+            })
+         
+console.log(   this.AddMemberList);
+
+          })
   }
 
-  fn_View(project:Project)
-  {
+  // fn_View(project:Project)
+  // {
     
   
-  }
+  // }
   
   Fn_Member(event,opt)
 {
@@ -323,11 +354,37 @@ let _model:any ={
 // arr.push(_model);
  this.arr.push(_model);
 
+ if (opt.value && opt.selected == true) {
+  this.selectedMemberList.push(opt.value);
+  console.log(this.selectedMemberList);
+
+} else {
+  this.selectedMemberList.forEach((element, index) => {
+    this.selectedMemberList.splice(index,1)
+    console.log('Spliced', this.selectedMemberList);
+  });
+  
+}
+
  }
 
- 
- gotit(name:string) {
-  //Use it from hare 
-  console.log(name);
-  }
+ fn_Inactive() {
+  debugger;
+   this.AddMemberList = [];
+ console.log("this.projectmodel.projectMembers",   this.projectmodel.projectMembers);
+   this.userService.memberIsActive().subscribe((res : any) => {
+
+       for (let i = 0; i < res.length; i++) {
+
+           this.AddMemberList.push(res[i]);
+           
+           } 
+           console.log('asxbas',this.AddMemberList);
+           
+           // this.projectmodel.projectMembers = this.AddMemberList;
+           
+       })
+   
+}
+
 }

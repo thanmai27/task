@@ -1,0 +1,149 @@
+<div class="pg-wrapper" id="user-management">
+    <button id="show_content" class="btn" style="margin-left:20%;margin-top: 2%; background-color: #007180;color:white;" (click)="Fn_AddUser()"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Add User</button>
+ <div id="table-content" class="card">
+ <div class=heading-elements>
+     <ul class="list-inline" style="margin-bottom:0;display: block;">
+         <li>
+             <a data-action="fa-redo" id="redo">
+                <i class="fas fa-redo fa-clickable" aria-hidden="true" style="text-align: left; margin-left: 94%;color: gray;
+                font-size: 12px;
+                margin-top: 12px;cursor:pointer;" (click)="Fn_refreshUserList()"></i>
+             </a>
+        
+            <a data-action="collapse" id="collapse">
+               <i class={{Icon}} aria-hidden="true" style="text-align: left; margin-left: -4%;color: gray;
+               font-size: 12px;
+               margin-top: 12px;cursor:pointer;" (click)="!Fn_Expand()"></i>
+            </a>
+        </li>
+     </ul>         
+ </div>
+  
+      <div class="card-body">
+        
+        <table datatable id="table" class="card-table table"  >
+ 
+
+            <thead>
+                <tr>
+                    <th>Full Name</th>
+                    <th>Email Id</th>
+                    <th>Mobile No</th>
+                    <th>Role</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tr *ngFor="let user of userService.users ; let indexOfelement=index;" id="tab_{{indexOfelement}}">
+                <td>{{user.name}}</td>
+                <td>{{user.email}}</td>
+                <td>{{user.phone==undefined?'NA':user.phone}}</td>
+                <td>{{user.role}}</td>
+
+                <td>
+                    <!-- <button id="bt_enable{{indexOfelement}}" class="btn btn-success" mwlConfirmationPopover [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage" placement="top" (confirm)="Fn_Enable('bt_enable'+indexOfelement,'bt_edit'+indexOfelement)" (cancel)="cancelClicked = false">
+{{status}}</button>&nbsp; -->
+                    <!-- <button id="bt_enable{{indexOfelement}}" class="btn btn-success" (click)="Fn_Enable('bt_enable'+indexOfelement,'bt_edit'+indexOfelement)">   {{status}}</button> &nbsp; -->
+                    <!-- <button hidden="{{user.isactive==1?true:false}}" id="bt_enable{{indexOfelement}}" class="btn btn-success" (click)="Fn_Enable(user,'bt_enable'+indexOfelement,'bt_edit'+indexOfelement)">   {{status}}</button> &nbsp; -->
+
+                    <button [hidden]="user.isenabled==1?true:false" id="bt_enable{{indexOfelement}}" class="btn" style="height:auto;width:auto;background-color:rgba(38, 190, 0, 0.856)" mwlConfirmationPopover [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage" placement="top" (confirm)="Fn_Disable(user._id)"
+                        (cancel)="cancelClicked = false"><i class="fa fa-ban fas" aria-hidden="true" title="Enable" style="color:white;font-size:medium;margin-left:auto;margin-left:auto;display:block !important"></i></button>
+                    <button [hidden]="user.isenabled==1?false:true" id="bt_disable{{indexOfelement}}" class="btn" style="height:auto;width:auto;background-color: rgb(250, 81, 109);" mwlConfirmationPopover [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage2"
+                        placement="top" (confirm)="Fn_Enable(user._id)" (cancel)="cancelClicked = false" title="Disable"> <i class="fa fa-ban fas" aria-hidden="true" style="color:white;font-size:medium;margin-left:auto;margin-left:auto;display:block !important"></i></button>&nbsp;
+
+                    <!-- <button id="{{user._id}}" class="btn btn-primary" style="width: 80px;margin-left: 20px;" (click)="Fn_Edit(user)" [disabled]="user.isenabled==1?false:true"> Edit</button> -->
+                    <button  id="{{user._id}}" class=" btn btn-primary  btn-xs" id=edit (click)="Fn_Edit(user)" [disabled]="user.isenabled==1?false:true" style="background-color:rgba(0, 0, 190, 0.856);height:auto;width:auto;" >
+                        <mat-icon aria-hidden="false" aria-label="Example Edit icon" title="Edit" style="color:white;font-size:x-large;margin-left:auto;margin-left:auto;display:block !important">edit</mat-icon>
+                    </button>&nbsp;
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<form #myform="ngForm" enctype="multipart/form-data" ngNativeValidate>
+
+    <div *ngIf="show">
+
+        <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="usermodel._id">
+
+        <div id="hide_content" class="card">
+
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <label>Role<span style="color: red;">*</span></label>
+                    </div>
+                    <div class="col-md-8">
+                        <select id="ddl_probtype" class="form-control" #role="ngModel" name="role" [(ngModel)]="usermodel.role" required>
+                    <option value="Team Lead">Team Lead</option>
+                    <option value="Member">Member</option>
+                </select>
+                        <span class="help-block" *ngIf="role.touched&&!role.valid">please select the option </span>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <label>Email :<span style="color: red;">*</span></label>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="email" id="txt_Email" class="form-control" name="email" pattern="[a-zA-Z_.\d]{5,50}@[a-z\d]{4}[.][a-z]{2}" maxlength="30" #email="ngModel" [readonly]="isReadOnly" [(ngModel)]="usermodel.email" required>
+                        <!-- <span class="help-block" *ngIf="email.touched">Email filed shouldnot to be empty </span> -->
+                        <span class="help-block" *ngIf="!email.valid&&email.errors?.pattern">Enter valid email(Ex:abcde@g7cr.in)</span> </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label>Name :<span style="color: red;">*</span></label>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="text" id="txt_Name" class="form-control" name="name" #name="ngModel" placeholder=" (Min 3 Characters)" minlength="3" maxlength="50" pattern="[a-zA-Z. ]{3,50}" [(ngModel)]="usermodel.name" required>
+                        <span class="help-block" *ngIf="name.errors?.pattern&&!name.valid">Enter valid name (Ex: Raj Kumar) </span>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label>Phone No :</label>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="tel" id="txt_Phone" class="form-control" name="phone" #phone="ngModel" pattern="[0-9]{10}" minlength="10" maxlength="10" [(ngModel)]="usermodel.phone">
+                        <span class="help-block" *ngIf="!phone.valid&&phone.errors?.pattern">Invalid phone number (Ex:9234567894)</span>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <label>Gender :</label>
+                    </div>
+                    <div class="col-md-8">
+                        <select id="ddl_probtype" class="form-control" #gender="ngModel" name="gender" [(ngModel)]="usermodel.gender">
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+
+                </select>
+                    </div>
+
+                    <input type="hidden" name="isactive" #isactive="ngModel" [(ngModel)]="usermodel.isactive">
+
+                </div>
+                <br/>
+                <div class="col-md-12  text-center">
+                    <button id="btn_save" class="btn btn-success" [disabled]="!myform.valid" (click)="Fn_Save(myform)">Save</button> &nbsp;
+                    <button class="btn btn-warning" (click)="Fn_Cancel(myform)">Cancel</button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+
+
+    </div>
+
+</form>
+</div>
