@@ -17,13 +17,19 @@ export class DashboardComponent implements OnInit {
   totalUsers:any;
   totalProjects:any;
   totalTasks:any;
-  canvas:any; ctx:any; canvas2:any; ctx2:any; canvas3:any; ctx3:any;
+  canvas:any; ctx:any;
+  canvas2:any; ctx2:any; 
+  canvas3:any; ctx3:any;
 colorarray:any=[];
 colors:any;
 n:any;
 rows:any;
 labels:any = [];
+baryaxis:any =[];
+piedata:any =[];
 project:Project[];
+pielabels =["Queue", "Assign", "Started","ON hold","Cancelled","Completed"];
+
   constructor(
     private authservice:AuthService, 
     public userservice: UserManagementService, 
@@ -33,19 +39,21 @@ project:Project[];
     
   
   ngOnInit() {
+    for(let i=0;i<this.pielabels.length;i++)
+    {
+      
+      this.taskservice.getTaskStatus(this.pielabels[i]).subscribe((res)=>
+      {
+        console.log(`${this.pielabels[i]}`,res);
+        this.piedata.push(res)
+      });
+    }
 
       this.projectservice.totalCount().subscribe((result)=>
       {
         this.totalProjects=result;
         this.colorarray.length=0;
-        // console.log(this.totalProjects);
-
-        // var dynamicColors = function() {
-        //   var r = Math.floor(Math.random() * 255);
-        //   var g = Math.floor(Math.random() * 255);
-        //   var b = Math.floor(Math.random() * 255);
-        //   return "rgb(" + r + "," + g + "," + b + ")";
-        //   };
+ 
         for(var i=0;i<this.totalProjects;i++)
         {
             var randomColor =  "#"+((1<<24)*Math.random()|0).toString(16); 
@@ -62,11 +70,14 @@ project:Project[];
       this.userservice.totalCount().subscribe((result)=>this.totalUsers=result);
     
       this.taskservice.totalCount().subscribe((result)=>this.totalTasks=result);
+
       this.canvas = document.getElementById('myChart');
-      // this.canvas2 = document.getElementById('myChart2');
-      // this.canvas3 = document.getElementById('myChart3');
       this.ctx = this.canvas.getContext('2d');
-      // this.ctx2 = this.canvas2.getContext('2d');
+
+      this.canvas2 = document.getElementById('myChart2');
+      this.ctx2 = this.canvas2.getContext('2d');
+
+      // this.canvas3 = document.getElementById('myChart3');
       //   this.ctx3 = this.canvas3.getContext('2d');
      
        
@@ -75,11 +86,11 @@ project:Project[];
             type: 'bar',
             data: {
               
-                labels: this.generateLabelsFromTable(),
+                labels: this.generateLabelsFromTableForBarChart(),
               
                 datasets: [{
-                    label: "All Project",
-                    data: [5, 10, 6,6],
+                    label: "No of Tasks",
+                    data: this.baryaxis,
                     backgroundColor:this.colorarray,
                     borderWidth: 0,
                     barThickness: 50,
@@ -102,31 +113,32 @@ project:Project[];
             }
           });
         
-        // let myChart2 = new Chart(this.ctx2, {
-        //     type: 'pie',
-        //     data: {
-        //         labels: ["Angular 11", "Angular 10", "Angular 9"],
-        //         datasets: [{
-        //             label: 'Active Angular Vesrions',
-        //             data: [85, 100, 60],
-        //             backgroundColor: ["red","blue", "orange"],
-        //             borderWidth: 1
-        //         }]
-        //     },
-        //     options: {
-        //   legend: {
-        //       display: true
-        //   },
-        //       responsive: true,
-        //   scales: {
-        //       yAxes: [{
-        //           ticks: {
-        //               beginAtZero: true
-        //           }
-        //       }]
-        //   }
-        //     }
-        //   });
+          
+        let myChart2 = new Chart(this.ctx2, {
+            type: 'doughnut',
+            data: {
+                labels: ["Queue", "Assign", "Started","ON hold","Cancelled","Completed"],
+                datasets: [{
+                    label: 'Active Angular Vesrions',
+                    data: this.piedata,
+                    backgroundColor: ["#7868e6","greenyellow", "#94ebcd","green","#f25287","yellow"],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+          legend: {
+              display: true
+          },
+              responsive: true,
+          scales: {
+              yAxes: [{
+                  ticks: {
+                      beginAtZero: true
+                  }
+              }]
+          }
+            }
+          });
         
         // let myChart3 = new Chart(this.ctx3, {
         //     type: 'line',
@@ -185,7 +197,7 @@ project:Project[];
   {
     this.authservice.fn_LogOut();
   }
-  generateLabelsFromTable()
+  generateLabelsFromTableForBarChart()
   {        
    //getProjectList               
    
@@ -196,7 +208,13 @@ project:Project[];
       for(let i = 0;i<result.length;i++)
       {
         //console.log(result[i].projectName);
-        this.labels.push(result[i].projectName)
+        this.labels.push(result[i].projectName);
+       this.taskservice.getTotalTaskInProject(result[i].projectName).subscribe((res:any)=>
+        {
+          console.log("Individual task in project",res);
+          this.baryaxis.push(res)
+          
+        })
         
         
       }
@@ -204,26 +222,21 @@ project:Project[];
       this.rows = this.labels.toString();
     
     
-    //  this.labels.project=result as Project[];
-    //   console.log("labels:"+this.labels.project)
-    //   alert(this.labels.project.projectName);
+
       });
 
-// this.userService.users.forEach(obj => {
-//   let value= this.projectService.projects.filter(ele=>((ele.projectLead||ele.projectMembers)==obj.name || ele.projectMembers.includes(obj.name)) && ele.projectState =="started")
 
-  //  this.labels.project.foreach(function(index){
-  //       if (index != 0)  // we dont need first row of table
-  //      {
-  //            var cols = this.labels.project.projectName[index];  
-  //          console.log("cols:"+cols);
-                
-  //          this.colorarray.push(cols);                           
-  //       }
-  //   });
-  // this.labels.project.forEach(element => {let pn=this.labels.project.filter(this.labels.projectName);
-  // this.colorarray.push(pn);});
 
     return this.labels;
+}
+
+generateLabelsFromTableForPieChart()
+{        
+ 
+  for(let i=0;i<this.pielabels.length;i++)
+  {
+    this.taskservice.getTaskStatus(this.pielabels[i]).subscribe((res)=>console.log("pie res",res));
+  }
+ 
 }
 }

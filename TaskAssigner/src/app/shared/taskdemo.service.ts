@@ -39,7 +39,16 @@ export class TaskdemoService {
     return this.http.get(this.baseURL +`/${taskId}`, this.httpOptions);
 
   }
+  getTotalTaskInProject(projectName)
+  {
+    return this.http.get(this.baseURL + "/getprojectName"+`/${projectName}`, this.httpOptions);
 
+  }
+  getTaskStatus(taskStatus)
+  {
+    return this.http.get(this.baseURL + "/gettaskstatus"+`/${taskStatus}`, this.httpOptions);
+
+  }
   getTaskChangesList()
   {
     return this.http.get(this.baseURL + "/changes", this.httpOptions);

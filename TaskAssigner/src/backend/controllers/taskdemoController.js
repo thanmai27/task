@@ -49,7 +49,7 @@ router.get('/totaltasks', async(req, res) => {
         else
         {
             res.send(err);
-    
+
         }
     });
     })
@@ -93,6 +93,47 @@ router.get('/:id', async (req, res) => {
     })
 
 
+
+
+})
+
+
+router.get('/getprojectName/:projectName', async (req, res) => {
+    console.log(`No of Tasks in Individual Projects` );
+    await Taskdemo.find({projectName:req.params.projectName}).countDocuments(function(err, doc){
+        console.log(`No of Tasks in ${req.params.projectName}: ${doc}` );
+
+        if(!err)
+        {
+    console.log(doc);
+    res.json(doc)
+        }
+        else
+        {
+            res.send(err);
+
+        }
+    });
+
+})
+
+
+router.get('/gettaskstatus/:taskStatus', async (req, res) => {
+    console.log(`Total no of ${req.params.taskStatus}  state   in TaskList` );
+    await Taskdemo.find({taskStatus:req.params.taskStatus}).countDocuments(function(err, doc){
+        console.log(`No of task in ${req.params.taskStatus} state : ${doc}` );
+
+        if(!err)
+        {
+    console.log(doc);
+    res.json(doc)
+        }
+        else
+        {
+            res.send(err);
+
+        }
+    });
 
 })
 
@@ -239,11 +280,11 @@ router.post('/', async (req, res) => {
 
 
 
-        
+
             await task.save();
             res.send(task);
             taskchane.save();
-        
+
 
 
 
@@ -348,7 +389,7 @@ router.put('/:id', (req, res) => {
         else if ((task.cancelReason == '' || task.cancelReason == undefined) && task.taskStatus == "cancelled")
          {
             res.status(400).send("Please mention the reason for cancellation. ");
- 
+
         }
         // else if (task.assignOn == null && task.taskStatus == "Cancelled") {
         //     res.status(400).send("Assign date is required ");
