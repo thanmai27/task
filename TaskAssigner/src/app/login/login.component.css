@@ -1,11 +1,12 @@
 #main
 {
-  width:50%;
-  margin:5% 60% 0% 35%;
+  width:65%;
+  height: 68%;
+  margin:8% 0% 0% 18%;
   border:2px solid #fcfcfc2a;
   /* padding-bottom: 6%; */
   /* background-color:#fcfcfc2a; */
-   background-color: rgba(255, 248, 220, 0.801);
+   background-color: rgba(34, 31, 23, 0.801);
 }
 
 .back
@@ -78,9 +79,9 @@ body {
 
 
 .card-3 .card-body {
-  background: url("/assets/images/laptop-bg.png") top left/cover no-repeat;
+  background: url("/assets/images/login.gif") top left/cover no-repeat;
 
- /* background-size: cover; */
+  /* background-size: cover;  */
   /* padding: 57px 65px;
   padding-bottom: 65px; */
   display: table-cell;
@@ -107,7 +108,7 @@ body {
   
 }
 .vl {
-  border-left: 7px solid #f6e192;
+  border-left: 7px solid #575243;
   height: 284px;
   position: absolute;
   left: 51%;

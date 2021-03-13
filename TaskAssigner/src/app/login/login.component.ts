@@ -52,8 +52,14 @@ export class LoginComponent implements OnInit {
     // }, 5000);
     // background-image: no-repeat;
     // background-size: cover;
-    var url='assets/images/web-design-bg.jpg';
+    var url='assets/images/loggin.jpg';
     $('body').css('background-image', 'url("' + url + '")');
+    $('body').css('background-image', 'no-repeat');
+    $('body').css('background-size', 'fixed');
+    // $('body').css('background-image', 'linear-gradient(to right, grey , yellow)');
+
+
+
     $(document).attr("title", "TaskAssigner - Login");
 
 

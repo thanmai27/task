@@ -39,6 +39,9 @@ pielabels =["Queue", "Assign", "Started","ON hold","Cancelled","Completed"];
     
   
   ngOnInit() {
+
+    $(document).attr("title", "TaskAssigner - Dashboard");
+
     for(let i=0;i<this.pielabels.length;i++)
     {
       

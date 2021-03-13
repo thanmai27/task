@@ -59,13 +59,22 @@
                                 <td>{{task.createdOn|date:'medium'}}</td>
                                 <td>
 
-                                    <!-- <button id="btnedit" [disabled]="task.taskStatus=='Completed'||task.taskStatus=='Cancelled'" class="btn btn-primary" style="background-color: rgb(211, 21, 211);width: 80px;border: transparent;margin-left: 3px;" (click)="fn_Edit(task)"> Edit</button>
+                                   
+                                <!-- <button mat-icon-button id="btnedit"  [disabled]="task.taskStatus=='Completed'||task.taskStatus=='Cancelled'"   (click)="fn_Edit(task)">
+                                    <mat-icon style="color: rgb(230, 64, 64)"> create</mat-icon>
+                                </button>
+                                <button mat-icon-button id="btnview"  (click)="fn_View(task)"><mat-icon style="color:green;">visibility
+                                    </mat-icon>
+                                </button> -->
 
-                                    <button class="btn btn-success" style="width: 80px;border: transparent;margin-left: 3px" (click)="fn_View(task)"> View</button> -->
-
-                                    <button mat-icon-button id="btnedit"  [disabled]="task.taskStatus=='Completed'||task.taskStatus=='Cancelled'"   (click)="fn_Edit(task)"><mat-icon style="color: rgb(230, 64, 64)"> create</mat-icon></button>
-                                    <button mat-icon-button id="btnview"  (click)="fn_View(task)"><mat-icon style="color:green;">visibility
-                                    </mat-icon></button>
+                                <button   [disabled]="task.taskStatus=='Completed'||task.taskStatus=='Cancelled'"  class=" btn btn-primary  btn-xs" id="btnedit" (click)="fn_Edit(task)" style="background-color:rgba(0, 0, 190, 0.856);height:auto;width:auto;" >
+                                    <mat-icon aria-hidden="false" aria-label="Example Edit icon" title=Edit style="color:white;font-size:large;margin-left:auto;margin-left:auto;display:block !important">edit</mat-icon>
+                                </button>
+                              
+                                <button id="btnview"  class="btn btn-xs"  style="background-color:rgb(7, 143, 221);height:auto;width:auto;"(click)="fn_View(task)">
+                                    <mat-icon aria-hidden="false" aria-label="Example view icon" title=View style="color:white;font-size:large ;margin-left:auto;margin-left:auto;display:block !important">remove_red_eye</mat-icon>
+                               </button>
+                                    
                                 </td>
 
                             </tr>

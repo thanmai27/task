@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MsalService } from '@azure/msal-angular';
 import {AuthService} from '../auth.service'
@@ -32,5 +33,7 @@ Logout()
 
 
 }
+
+
 
 }
