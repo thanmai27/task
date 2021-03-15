@@ -63,7 +63,7 @@
             <h3></h3>
           </div>
           <div class="card-body">
-              <canvas id="myChart" width="200" height="150"></canvas>
+              <canvas id="myChart" width="200" height="150"  (click)="onBarChartClick($event)"></canvas>
       
           </div>
         </div>
@@ -75,7 +75,7 @@
            <h3></h3>
          </div>
          <div class="card-body">
-             <canvas id="myChart2" width="200px" height="150"></canvas>
+             <canvas id="myChart2" width="200px" height="150" (click)="onPieChartClick($event)"></canvas>
          </div>
        </div>
      </div>
@@ -87,4 +87,61 @@
   
 </div>
 
+<div  class="card-body" *ngIf="barchartdata">
+  <h3 style="margin-left: 50%;">List of Tasks in  {{taskData[0].projectName}}  Project</h3>
+<hr style="margin-left: 50%;">
+  <table  style="margin-left: 20%;" id = "table" class="card-table table"  >
+    <thead>
+        <tr>
+            <th>Task ID</th>
+            <th>ProjectName</th>
+            <th>TeamMember</th>
+            <th>TaskName</th>
+            <th>Created on</th>
+            <th>TaskStatus</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let task of taskData">
+            <td>{{task._id}}</td>
+            <td>{{task.projectName}}</td>
+            <td>{{task.teamMember}}</td>
+            <td>{{task.taskName}}</td>
+            <td>{{task.createdOn|date:'medium'}}</td>
+            <td>{{task.taskStatus}}</td>
+        </tr>
+    </tbody>
+
+</table>
+
+</div>
+
+
+<div  class="card-body" *ngIf="piechartdata">
+  <h3 style="margin-left: 50%;">List of Projects in  {{statusData[0].taskStatus}}  State</h3>
+  <hr style="margin-left: 50%;">
+  <table  style="margin-left: 20%;" id = "table" class="card-table table"  >
+    <thead>
+        <tr>
+            <th>Task ID</th>
+            <th>ProjectName</th>
+            <th>TeamMember</th>
+            <th>Created on</th>
+            <th>TaskStatus</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let status of statusData">
+            <td>{{status._id}}</td>
+            <td>{{status.projectName}}</td>
+            <td>{{status.teamMember}}</td>
+            <td>{{status.createdOn|date:'medium'}}</td>
+            <td>{{status.taskStatus}}</td>
+        </tr>
+    </tbody>
+
+</table>
+
+</div>
+</div>
           

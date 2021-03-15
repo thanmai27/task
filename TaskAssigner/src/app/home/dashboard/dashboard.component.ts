@@ -7,11 +7,15 @@ import { ProjectmanagementService } from 'src/app/shared/projectmanagement.servi
 import { TaskdemoService } from 'src/app/shared/taskdemo.service';
 import * as Chart from 'chart.js'
 import { Project } from 'src/app/model/project.model';
+
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
+
+
 export class DashboardComponent implements OnInit {
   
   totalUsers:any;
@@ -20,16 +24,21 @@ export class DashboardComponent implements OnInit {
   canvas:any; ctx:any;
   canvas2:any; ctx2:any; 
   canvas3:any; ctx3:any;
-colorarray:any=[];
-colors:any;
-n:any;
-rows:any;
-labels:any = [];
-baryaxis:any =[];
-piedata:any =[];
-project:Project[];
-pielabels =["Queue", "Assign", "Started","ON hold","Cancelled","Completed"];
+  colorarray:any=[];
+  colors:any;
+  n:any;
+  rows:any;
+  labels:any = [];
+  baryaxis:any =[];
+  piedata:any =[];
+  project:Project[];
+  pielabels =["Queue", "Assign", "Started","ON hold","Cancelled","Completed"];
 
+  myChart;myChart2;
+taskData = [];
+statusData= [];
+barchartdata:any;
+piechartdata:any;
   constructor(
     private authservice:AuthService, 
     public userservice: UserManagementService, 
@@ -42,12 +51,17 @@ pielabels =["Queue", "Assign", "Started","ON hold","Cancelled","Completed"];
 
     $(document).attr("title", "TaskAssigner - Dashboard");
 
+
+    this.barchartdata=false;
+    this.piechartdata=false;
+
+    
     for(let i=0;i<this.pielabels.length;i++)
     {
       
       this.taskservice.getTaskStatus(this.pielabels[i]).subscribe((res)=>
       {
-        console.log(`${this.pielabels[i]}`,res);
+        //console.log(`${this.pielabels[i]}`,res);
         this.piedata.push(res)
       });
     }
@@ -61,7 +75,7 @@ pielabels =["Queue", "Assign", "Started","ON hold","Cancelled","Completed"];
         {
             var randomColor =  "#"+((1<<24)*Math.random()|0).toString(16); 
             this.colorarray.push(randomColor);
-            console.log(this.colorarray);
+           // console.log(this.colorarray);
           
            // this.colors=this.colorarray.toString();
             //this.colors = "'" + this.colorarray.join("','") + "'";
@@ -85,12 +99,11 @@ pielabels =["Queue", "Assign", "Started","ON hold","Cancelled","Completed"];
      
        
           this.colors=this.colorarray.toString();
-          let myChart = new Chart(this.ctx, {
+          this.myChart = new Chart(this.ctx, {
             type: 'bar',
             data: {
               
                 labels: this.generateLabelsFromTableForBarChart(),
-              
                 datasets: [{
                     label: "No of Tasks",
                     data: this.baryaxis,
@@ -100,6 +113,15 @@ pielabels =["Queue", "Assign", "Started","ON hold","Cancelled","Completed"];
                 }]
             },
             options: {
+            //   onClick: function(e) {
+            //     var element = this.getElementAtEvent(e);
+            //     if (element.length) {
+            //        console.log(element[0]);
+                   
+            //        this.taskservice.getDetailsOfTaskInProject("Green Matters").subscribe((result)=>alert(result))
+
+            //     }
+            //  },
             legend: {
               display: true
             },
@@ -117,7 +139,36 @@ pielabels =["Queue", "Assign", "Started","ON hold","Cancelled","Completed"];
           });
         
           
-        let myChart2 = new Chart(this.ctx2, {
+        //   this.canvas.onclick = function(evt) {
+        //     debugger;
+        //     var activePoints = myChart.getElementsAtEvent(evt);
+        //     if (activePoints[0]) {
+        //       var chartData = activePoints[0]['_chart'].config.data;
+        //       var idx = activePoints[0]['_index'];
+      
+        //       var label = chartData.labels[idx];
+        //       var value = chartData.datasets[0].data[idx];
+      
+        //       alert(label);
+          
+           
+        //  function fn_getprojecttask(projectName)
+        //   {
+
+        //     alert("function is called" +projectName);
+        //   this.taskservice.getDetailsOfTaskInProject(projectName).subscribe((result)=>alert(result))
+
+        //   }
+
+        //   fn_getprojecttask(label)
+
+                
+        //        }
+        //   };
+          
+
+
+        this.myChart2 = new Chart(this.ctx2, {
             type: 'doughnut',
             data: {
                 labels: ["Queue", "Assign", "Started","ON hold","Cancelled","Completed"],
@@ -142,64 +193,16 @@ pielabels =["Queue", "Assign", "Started","ON hold","Cancelled","Completed"];
           }
             }
           });
-        
-        // let myChart3 = new Chart(this.ctx3, {
-        //     type: 'line',
-        //     data: {
-        //         labels: ["Angular 11", "Angular 10", "Angular 9"],
-        //         datasets: [{
-        //             label: 'Active Angular Vesrions',
-        //             data: [85, 100, 60],
-        //             backgroundColor: ["red","blue", "orange"],
-        //             borderWidth: 1
-        //         }]
-        //     },
-        //     options: {
-        //   legend: {
-        //       display: true
-        //   },
-        //       responsive: true,
-             
-        //   scales: {
-        //       yAxes: [{
-        //           ticks: {
-        //               beginAtZero: true
-        //           }
-        //       }]
-        //   }
-        //     }
-        //   });
-      // let chart = new CanvasJS.Chart("chartContainer", {
-      //   animationEnabled: true,
-      //   exportEnabled: true,
-      //   title: {
-      //     text: "Basic Column Chart in Angular"
-      //   },
-      //   data: [{
-      //     type: "column",
-      //     dataPoints: [
-      //       { y: 71, label: "Apple" },
-      //       { y: 55, label: "Mango" },
-      //       { y: 50, label: "Orange" },
-      //       { y: 65, label: "Banana" },
-      //       { y: 95, label: "Pineapple" },
-      //       { y: 68, label: "Pears" },
-      //       { y: 28, label: "Grapes" },
-      //       { y: 34, label: "Lychee" },
-      //       { y: 14, label: "Jackfruit" }
-      //     ]
-      //   }]
-      // });
-        
-      // chart.render();
-     
-    
+
+      
+  
+
         }
 
-  logout()
-  {
-    this.authservice.fn_LogOut();
-  }
+  // logout()
+  // {
+  //   this.authservice.fn_LogOut();
+  // }
   generateLabelsFromTableForBarChart()
   {        
    //getProjectList               
@@ -214,7 +217,7 @@ pielabels =["Queue", "Assign", "Started","ON hold","Cancelled","Completed"];
         this.labels.push(result[i].projectName);
        this.taskservice.getTotalTaskInProject(result[i].projectName).subscribe((res:any)=>
         {
-          console.log("Individual task in project",res);
+          //console.log("Individual task in project",res);
           this.baryaxis.push(res)
           
         })
@@ -242,4 +245,79 @@ generateLabelsFromTableForPieChart()
   }
  
 }
+
+
+
+onBarChartClick(e: any): void {
+
+  this.barchartdata=true;
+  this.piechartdata=false;
+
+  setTimeout(()=>{      window.scrollTo(0, 500);    },100)
+
+
+  var activePoints =this.myChart.getElementsAtEvent(e);
+      if (activePoints[0]) {
+        var chartData = activePoints[0]['_chart'].config.data;
+        var idx = activePoints[0]['_index'];
+
+        var label = chartData.labels[idx];
+        var value = chartData.datasets[0].data[idx];
+
+        this.taskData =[];
+
+        this.taskservice.getDetailsOfTaskInProject(label).subscribe((result:any)=>
+        {
+          debugger;
+          for(let i=0;i<result.length;i++)
+          {
+            this.taskData.push(result[i]);
+
+          }
+          console.log(this.taskData);
+
+
+        })
+
+
+}
+}
+
+onPieChartClick(e: any): void {
+
+  this.barchartdata=false;
+  this.piechartdata=true;
+  setTimeout(()=>{      window.scrollTo(0, 500);    },100)
+
+
+  var activePoints =this.myChart2.getElementsAtEvent(e);
+      if (activePoints[0]) {
+        var chartData = activePoints[0]['_chart'].config.data;
+        var idx = activePoints[0]['_index'];
+
+        var label = chartData.labels[idx];
+        var value = chartData.datasets[0].data[idx];
+
+        this.statusData =[];
+
+        this.taskservice.getDetailsOfTaskStatus(label).subscribe((result:any)=>
+        {
+          debugger;
+          for(let i=0;i<result.length;i++)
+          {
+            this.statusData.push(result[i]);
+
+          }
+          console.log(this.statusData);
+
+
+        })
+
+
+}
+}
+
+
+
+
 }

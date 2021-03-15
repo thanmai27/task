@@ -236,3 +236,26 @@
 {"metadata":{"stringValue":"\"Green Matters\"","kind":"ObjectId","value":"Green Matters","path":"_id","reason":{}},"level":"error","message":"Cast to ObjectId failed for value \"Green Matters\" at path \"_id\" for model \"Taskdemo\""}
 {"metadata":{"stringValue":"\"Green Matters\"","kind":"ObjectId","value":"Green Matters","path":"_id","reason":{}},"level":"error","message":"Cast to ObjectId failed for value \"Green Matters\" at path \"_id\" for model \"Taskdemo\""}
 {"metadata":{"stringValue":"\"Green Matters\"","kind":"ObjectId","value":"Green Matters","path":"_id","reason":{}},"level":"error","message":"Cast to ObjectId failed for value \"Green Matters\" at path \"_id\" for model \"Taskdemo\""}
+{"metadata":{},"level":"error","message":"Cannot read property 'split' of undefined"}
+{"metadata":{},"level":"error","message":"Cannot read property 'split' of undefined"}
+{"metadata":{},"level":"error","message":"Cannot read property 'split' of undefined"}
+{"metadata":{},"level":"error","message":"Cannot read property 'split' of undefined"}
+{"metadata":{},"level":"error","message":"Cannot read property 'split' of undefined"}
+{"metadata":{},"level":"error","message":"Cannot read property 'split' of undefined"}
+{"metadata":{},"level":"error","message":"Cannot read property 'split' of undefined"}
+{"metadata":{},"level":"error","message":"Cannot read property 'split' of undefined"}
+{"metadata":{},"level":"error","message":"Cannot read property 'split' of undefined"}
+{"metadata":{},"level":"error","message":"Cannot read property 'split' of undefined"}
+{"metadata":{},"level":"error","message":"Cannot read property 'split' of undefined"}
+{"metadata":{"stringValue":"\"teena\"","kind":"ObjectId","value":"teena","path":"_id","reason":{}},"level":"error","message":"Cast to ObjectId failed for value \"teena\" at path \"_id\" for model \"Taskdemo\""}
+{"metadata":{"stringValue":"\"listdetails\"","kind":"ObjectId","value":"listdetails","path":"_id","reason":{}},"level":"error","message":"Cast to ObjectId failed for value \"listdetails\" at path \"_id\" for model \"Taskdemo\""}
+{"metadata":{},"level":"error","message":"Taskdemo.findMany is not a function"}
+{"metadata":{},"level":"error","message":"option is not defined"}
+{"metadata":{},"level":"error","message":"Taskdemo.findone is not a function"}
+{"metadata":{"stringValue":"\"user\"","kind":"ObjectId","value":"user","path":"_id","reason":{}},"level":"error","message":"Cast to ObjectId failed for value \"user\" at path \"_id\" for model \"Taskdemo\""}
+{"metadata":{"stringValue":"\"user\"","kind":"ObjectId","value":"user","path":"_id","reason":{}},"level":"error","message":"Cast to ObjectId failed for value \"user\" at path \"_id\" for model \"Taskdemo\""}
+{"metadata":{"stringValue":"\"one\"","kind":"ObjectId","value":"one","path":"_id","reason":{}},"level":"error","message":"Cast to ObjectId failed for value \"one\" at path \"_id\" for model \"Taskdemo\""}
+{"metadata":{"stringValue":"\"one\"","kind":"ObjectId","value":"one","path":"_id","reason":{}},"level":"error","message":"Cast to ObjectId failed for value \"one\" at path \"_id\" for model \"Taskdemo\""}
+{"metadata":{"stringValue":"\"one\"","kind":"ObjectId","value":"one","path":"_id","reason":{}},"level":"error","message":"Cast to ObjectId failed for value \"one\" at path \"_id\" for model \"Taskdemo\""}
+{"metadata":{"stringValue":"\"one\"","kind":"ObjectId","value":"one","path":"_id","reason":{}},"level":"error","message":"Cast to ObjectId failed for value \"one\" at path \"_id\" for model \"Taskdemo\""}
+{"metadata":{"code":"ERR_HTTP_INVALID_STATUS_CODE"},"level":"error","message":"Invalid status code: 2"}

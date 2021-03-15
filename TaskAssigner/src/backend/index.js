@@ -53,7 +53,7 @@ app.use('/contact', jwtVerify, contactController)
 app.use('/user',userController);
 app.use('/project',jwtVerify, projectController);
 app.use('/task',jwtVerify, taskController);
-app.use('/taskdemo',jwtVerify, taskdemoController);
+app.use('/taskdemo', taskdemoController);
 app.use('/',oauthController);
 app.use('/employee',jwtVerify, employeeController);
 // app.use('/fb',fbAuthController)

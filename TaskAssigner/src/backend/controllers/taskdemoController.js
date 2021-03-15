@@ -117,10 +117,61 @@ router.get('/getprojectName/:projectName', async (req, res) => {
 
 })
 
+router.get('/getprojectdetails/:projectName', async (req, res) => {
+    console.log(`No of Tasks in Individual Projects` );
+    await Taskdemo.find({projectName:req.params.projectName},function(err, doc){
+        console.log(`No of Tasks in ${req.params.projectName}: ${doc}` );
+
+        if(!err)
+        {
+    console.log(doc);
+    res.json(doc)
+        }
+        else
+        {
+            res.send(err);
+
+        }
+    });
+
+})
+
+
+//project names with status
+router.get('/a/b/c/d', async (req, res)=> {
+
+    const user = await Taskdemo.find({projectName:req.body.projectName,taskStatus:req.body.taskStatus});
+   
+    if (user) {
+      // DO YOUR THING
+      console.log(user);
+      res.json(user.length)
+    }
+   
+   });
 
 router.get('/gettaskstatus/:taskStatus', async (req, res) => {
     console.log(`Total no of ${req.params.taskStatus}  state   in TaskList` );
     await Taskdemo.find({taskStatus:req.params.taskStatus}).countDocuments(function(err, doc){
+        console.log(`No of task in ${req.params.taskStatus} state : ${doc}` );
+
+        if(!err)
+        {
+    console.log(doc);
+    res.json(doc)
+        }
+        else
+        {
+            res.send(err);
+
+        }
+    });
+
+})
+
+router.get('/gettaskstatusdetails/:taskStatus', async (req, res) => {
+    console.log(`Total no of ${req.params.taskStatus}  state   in TaskList` );
+    await Taskdemo.find({taskStatus:req.params.taskStatus},function(err, doc){
         console.log(`No of task in ${req.params.taskStatus} state : ${doc}` );
 
         if(!err)
@@ -150,53 +201,6 @@ router.get('/changes/:taskId', async (req, res) => {
 
 
 })
-
-
-
-// router.post('/', async(req, res) => {
-
-
-
-
-//     let task = new Taskdemo({
-
-//         statusList:["Queue","Assign","Started","ON hold","Cancelled","Completed"]
-
-
-
-
-//     });
-//     let str = task.statusList.length;
-//     console.log(str);
-//     let p =str-1;
-//     console.log(p)
-//     let q = str-p;
-//     for(let j =0; j<q;)
-//     {
-//       for(let i=0; i<q;)
-//       {
-//       console.log(task.statusList[i]);
-//       }
-
-//     }
-
-
-
-//         await task.save((err,doc)=>
-//         {
-//             if(!err)
-//             {
-//                 res.send(doc)
-//             }
-//             else{
-//                 res.send(err)
-//             }
-//         });
-
-
-
-// })
-
 
 router.post('/', async (req, res) => {
 
@@ -234,51 +238,6 @@ router.post('/', async (req, res) => {
                 modifiedOn: Date.now(),
 
             })
-        // if (task.assignOn == null && task.startOn != null) {
-        //     res.status(400).send("You cannot set start date without assign date");
-        //     console.log(task.assignOn, task.startOn)
-
-        // }
-        // else if (task.assignOn != null && task.taskStatus == "Assign") {
-        //     console.log("Cannot assign date again")
-        //     res.status(400).send("Cannot assign date again")
-
-        // }
-        // else if (Date.parse(task.assignOn) > Date.parse(task.startOn)) {
-        //     console.log("start date must be greater than assign Date")
-        //     res.status(400).send("start date must be greater than assign date")
-
-        // }
-
-        // else if (Date.parse(task.assignOn) > Date.parse(task.endOn)) {
-        //     console.log("EndDate must be greater than Assign Date")
-        //     res.status(400).send("end date must be greater than assign date")
-        // }
-
-        // else if (Date.parse(task.startOn) > Date.parse(task.endOn)) {
-        //     console.log("EndDate must be greater than Start Date")
-        //     res.status(400).send("end date must be greater than  start date")
-        // }
-
-        // else if (Date.parse(task.holdOn) < Date.parse(task.assignOn)) {
-        //     console.log("ON hold Date must be greater than Assign Date")
-        //     res.status(400).send("ON hold Date must be greater than Assign Date");
-        // }
-        // else if (Date.parse(task.cancelledOn) < Date.parse(task.assignOn)) {
-        //     console.log("Cancelled Date must be greater than Assign Date")
-        //     res.status(400).send("Cancelled Date must be greater than Assign Date");
-        // }
-        // else if (Date.parse(task.cancelledOn) <= Date.parse(task.startOn)) {
-        //     console.log("Cancelled Date must be greater than or equall to  Start Date")
-        //     res.status(400).send("Cancelled Date must be greater than or equall to  Start Date");
-        // }
-
-
-        // else if (task.taskStatus == "Completed" && task.assignOn == null && task.startOn == null) {
-        //     res.status(400).send("Start date and Assign date are required")
-        // }
-
-
 
 
             await task.save();
@@ -391,10 +350,7 @@ router.put('/:id', (req, res) => {
             res.status(400).send("Please mention the reason for cancellation. ");
 
         }
-        // else if (task.assignOn == null && task.taskStatus == "Cancelled") {
-        //     res.status(400).send("Assign date is required ");
 
-        // }
         else {
 
             Taskdemo.findByIdAndUpdate(req.params.id, { $set: task }, { new: true })
@@ -408,15 +364,7 @@ router.put('/:id', (req, res) => {
 
         }
 
-        // if(!error)
-        // {
-        //     Task.findByIdAndUpdate(req.params.id, { $set: task }, { new: true })
-        //     .then(result =>
-        //         {
-        //             res.send(result)
-        //         } )
-        //     .catch(err => res.status(400).send(err))
-        // }
+
 
 
     } catch (error) {

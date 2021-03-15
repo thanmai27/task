@@ -68,7 +68,8 @@ export class LoginComponent implements OnInit {
   Fn_Login(data)
   {
     this.btnValue= $('#btn_ms').val();
- 
+    console.log(this.btnValue);
+
     const loggedUserInfo={user:data.email};
     sessionStorage.setItem('buttonValue',JSON.stringify( this.btnValue));
  
@@ -100,7 +101,10 @@ export class LoginComponent implements OnInit {
  
   fn_Fblogin()
   {
+    
     this.btnValue = $('#btn_fb').val();
+    console.log(this.btnValue);
+
     sessionStorage.setItem('buttonValue',JSON.stringify( this.btnValue));
  
     this.authservice.LogIn().subscribe((result:any)=>{

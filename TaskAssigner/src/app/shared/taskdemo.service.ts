@@ -44,9 +44,21 @@ export class TaskdemoService {
     return this.http.get(this.baseURL + "/getprojectName"+`/${projectName}`, this.httpOptions);
 
   }
+
+    getDetailsOfTaskInProject(projectName)
+  {
+    return this.http.get(this.baseURL + "/getprojectdetails"+`/${projectName}`, this.httpOptions);
+
+  }
   getTaskStatus(taskStatus)
   {
     return this.http.get(this.baseURL + "/gettaskstatus"+`/${taskStatus}`, this.httpOptions);
+
+  }
+
+  getDetailsOfTaskStatus(taskStatus)
+  {
+    return this.http.get(this.baseURL + "/gettaskstatusdetails"+`/${taskStatus}`, this.httpOptions);
 
   }
   getTaskChangesList()
