@@ -33,6 +33,7 @@ export class TaskdemoService {
   {
     return this.http.get(this.baseURL, this.httpOptions);
   }
+
   getOneTask(taskId:any)
   {
     console.log(this.baseURL +`/${taskId}`)
@@ -44,7 +45,12 @@ export class TaskdemoService {
     return this.http.get(this.baseURL + "/getprojectName"+`/${projectName}`, this.httpOptions);
 
   }
+  checkStatus(projectName,taskStaus)
+{
 
+  return this.http.get(this.baseURL+`/taskstatus/${projectName}/${taskStaus}` ,this.httpOptions);
+
+}
     getDetailsOfTaskInProject(projectName)
   {
     return this.http.get(this.baseURL + "/getprojectdetails"+`/${projectName}`, this.httpOptions);

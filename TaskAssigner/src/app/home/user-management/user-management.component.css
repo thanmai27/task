@@ -32,3 +32,9 @@ color:white;
   top: 0; 
   left: 0; 
 } */
+
+
+.high-light{
+  background:rgba(0, 0, 255, 0.534) !important;
+  color: white;
+}

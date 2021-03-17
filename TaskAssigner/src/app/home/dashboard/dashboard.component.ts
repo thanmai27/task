@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import {AuthService} from '../../auth.service';
 import { ActivatedRoute } from '@angular/router';
 import { UserManagementService } from 'src/app/shared/user-management.service';
 import { ProjectmanagementService } from 'src/app/shared/projectmanagement.service';
@@ -33,14 +32,14 @@ export class DashboardComponent implements OnInit {
   piedata:any =[];
   project:Project[];
   pielabels =["Queue", "Assign", "Started","ON hold","Cancelled","Completed"];
+  projectName;any
 
-  myChart;myChart2;
+  myChart;myChart2;myChart3;
 taskData = [];
 statusData= [];
 barchartdata:any;
 piechartdata:any;
   constructor(
-    private authservice:AuthService, 
     public userservice: UserManagementService, 
     public projectservice: ProjectmanagementService,
     public taskservice: TaskdemoService) { }
@@ -52,10 +51,11 @@ piechartdata:any;
     $(document).attr("title", "TaskAssigner - Dashboard");
 
 
+
     this.barchartdata=false;
     this.piechartdata=false;
+    this.generateLabelsFromTableForBarChart()
 
-    
     for(let i=0;i<this.pielabels.length;i++)
     {
       
@@ -95,15 +95,16 @@ piechartdata:any;
       this.ctx2 = this.canvas2.getContext('2d');
 
       // this.canvas3 = document.getElementById('myChart3');
-      //   this.ctx3 = this.canvas3.getContext('2d');
+      // this.ctx3 = this.canvas3.getContext('2d');
      
        
           this.colors=this.colorarray.toString();
+          
           this.myChart = new Chart(this.ctx, {
             type: 'bar',
             data: {
               
-                labels: this.generateLabelsFromTableForBarChart(),
+                labels:  this.labels,
                 datasets: [{
                     label: "No of Tasks",
                     data: this.baryaxis,
@@ -113,15 +114,7 @@ piechartdata:any;
                 }]
             },
             options: {
-            //   onClick: function(e) {
-            //     var element = this.getElementAtEvent(e);
-            //     if (element.length) {
-            //        console.log(element[0]);
-                   
-            //        this.taskservice.getDetailsOfTaskInProject("Green Matters").subscribe((result)=>alert(result))
-
-            //     }
-            //  },
+        
             legend: {
               display: true
             },
@@ -138,40 +131,12 @@ piechartdata:any;
             }
           });
         
-          
-        //   this.canvas.onclick = function(evt) {
-        //     debugger;
-        //     var activePoints = myChart.getElementsAtEvent(evt);
-        //     if (activePoints[0]) {
-        //       var chartData = activePoints[0]['_chart'].config.data;
-        //       var idx = activePoints[0]['_index'];
-      
-        //       var label = chartData.labels[idx];
-        //       var value = chartData.datasets[0].data[idx];
-      
-        //       alert(label);
-          
-           
-        //  function fn_getprojecttask(projectName)
-        //   {
-
-        //     alert("function is called" +projectName);
-        //   this.taskservice.getDetailsOfTaskInProject(projectName).subscribe((result)=>alert(result))
-
-        //   }
-
-        //   fn_getprojecttask(label)
-
-                
-        //        }
-        //   };
-          
-
+        
 
         this.myChart2 = new Chart(this.ctx2, {
             type: 'doughnut',
             data: {
-                labels: ["Queue", "Assign", "Started","ON hold","Cancelled","Completed"],
+                labels: this.pielabels,
                 datasets: [{
                     label: 'Active Angular Vesrions',
                     data: this.piedata,
@@ -180,33 +145,35 @@ piechartdata:any;
                 }]
             },
             options: {
+              
           legend: {
               display: true
           },
               responsive: true,
-          scales: {
+          scales: 
+          {
               yAxes: [{
-                  ticks: {
-                      beginAtZero: true
+                  ticks:
+                  {
+                    beginAtZero: true
                   }
               }]
           }
             }
           });
 
-      
+          this.myChart2.clear();
+
   
 
         }
 
-  // logout()
-  // {
-  //   this.authservice.fn_LogOut();
-  // }
+
   generateLabelsFromTableForBarChart()
   {        
    //getProjectList               
-   
+   this.baryaxis =[];
+   this.labels =[];
     this.projectservice.getProjectList ().subscribe((result:any)=>
     {
      this.labels.length=0;
@@ -236,15 +203,15 @@ piechartdata:any;
     return this.labels;
 }
 
-generateLabelsFromTableForPieChart()
-{        
+// generateLabelsFromTableForPieChart()
+// {        
  
-  for(let i=0;i<this.pielabels.length;i++)
-  {
-    this.taskservice.getTaskStatus(this.pielabels[i]).subscribe((res)=>console.log("pie res",res));
-  }
+//   for(let i=0;i<this.pielabels.length;i++)
+//   {
+//     this.taskservice.getTaskStatus(this.pielabels[i]).subscribe((res)=>console.log("pie res",res));
+//   }
  
-}
+// }
 
 
 
@@ -252,6 +219,13 @@ onBarChartClick(e: any): void {
 
   this.barchartdata=true;
   this.piechartdata=false;
+  let Arr =[];
+  let leb =[];
+  let test =[];
+  this.pielabels =[];
+  this.piedata =[];
+
+
 
   setTimeout(()=>{      window.scrollTo(0, 500);    },100)
 
@@ -263,24 +237,77 @@ onBarChartClick(e: any): void {
 
         var label = chartData.labels[idx];
         var value = chartData.datasets[0].data[idx];
+        this.projectName =label;
 
         this.taskData =[];
-
         this.taskservice.getDetailsOfTaskInProject(label).subscribe((result:any)=>
         {
-          debugger;
           for(let i=0;i<result.length;i++)
           {
             this.taskData.push(result[i]);
+            test.push( this.taskData[i].taskStatus)
+           test = [...new Set(  test)];
+
 
           }
-          console.log(this.taskData);
+       console.log(  "  test",test);
+       
+
+          for(let j=0;j<test.length;j++)
+          {
+             this.taskservice.checkStatus(label,test[j]).subscribe((res:any)=>
+             {
+              console.log(`checkstatus${this.taskData[j].taskStatus}`,res);
+     
+              Arr.push(res)
+              leb.push(this.taskData[j].taskStatus);
+              leb = [...new Set(leb)];
+              
+
+              console.log("Arr",Arr);
+              this.myChart2.destroy();
+        this.myChart2= new Chart(this.ctx2, {
+          type: 'doughnut',
+          data: {
+              labels: leb,
+              datasets: [{
+                  data:  Arr,
+                  backgroundColor: ["#7868e6","greenyellow", "#94ebcd","green","#f25287","yellow"],
+                  borderWidth: 1
+              }]
+          },
+          options: {
+        legend: {
+            display: true
+        },
+            responsive: true,
+        scales: 
+        {
+            yAxes: [{
+                ticks:
+                {
+                  beginAtZero: true
+                }
+            }]
+        }
+          }
+        });
+
+
+
+              
+             }
+            );
+          }
+
 
 
         })
 
 
 }
+
+
 }
 
 onPieChartClick(e: any): void {
@@ -297,6 +324,8 @@ onPieChartClick(e: any): void {
 
         var label = chartData.labels[idx];
         var value = chartData.datasets[0].data[idx];
+        this.projectName =label;
+
 
         this.statusData =[];
 

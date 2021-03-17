@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { UserManagementService } from '../../shared/user-management.service'
 import * as $ from 'jquery';
+import {DataTablesModule} from 'angular-datatables';
+
+
 import { User } from 'src/app/shared/usermanagement.model';
 import { ToastrService } from 'ngx-toastr';
 
@@ -36,6 +39,14 @@ Icon='fas fa-expand'
 
   ngOnInit() {
     $(document).attr("title", "TaskAssigner - User");
+    
+    setTimeout(function () {
+      $('table').DataTable({
+        responsive: true,
+
+        "lengthMenu": [5, 10, 25, 50]
+      });
+    }, 100);
 
     this.Fn_refreshUserList();
     this.Fn_resetForm();
@@ -169,6 +180,15 @@ this.isReadOnly = false;
   }
    !this.sidebar;
 }
+
+fn_SelectRow() 
+{
+$('#tabledata tbody').on('click', 'tr', function() {
+  $('#tabledata tbody > tr').removeClass('high-light');
+  $(this).addClass('high-light');
+});
+}
+
   Fn_Save(form: NgForm) {
 
     if (form.value._id == "") {

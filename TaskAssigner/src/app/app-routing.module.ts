@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { BlobComponent } from './azureblob/blob/blob.component';
+import { DboardComponent } from './dboard/dboard.component';
 import { ContactComponent } from './home/contact/contact.component';
 import { DashboardComponent } from './home/dashboard/dashboard.component';
 import { HomeComponent } from './home/home.component';
@@ -11,7 +12,6 @@ import { UserManagementComponent } from './home/user-management/user-management.
 import { LoadingComponent } from './loading/loading.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
-import { ProjectComponent } from './project/project.component';
 import { AuthGuard } from './shared/auth.guard';
 import { TableComponent } from './table/table.component';
 
@@ -43,7 +43,8 @@ children:[{path:'',component:TasksComponent}]},
   {path:'table', component:TableComponent},
   {path:'verify', component:LoadingComponent},
   {path:'logout', component:LogoutComponent},
-  {path:'project',component:ProjectComponent}
+  {path:'dboard',component:DboardComponent}
+
 ];
 
 @NgModule({

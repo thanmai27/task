@@ -49,8 +49,8 @@ export class TasksComponent implements OnInit {
   projectList = [];
   createdmemeber: any;
   modifiedMember = [];
-
-
+  sidebar= $('.main-sidebar ').show();
+Icon='fas fa-expand'
   isAssign: any;
   isStart: any;
   isEnd: any;
@@ -60,7 +60,7 @@ export class TasksComponent implements OnInit {
   projectControl = new FormControl('', Validators.required);
   selectFormControl = new FormControl('', Validators.required);
   options = [];
-  constructor(public projectService: ProjectmanagementService,
+  constructor(private projectService: ProjectmanagementService,
     public taskService: TaskdemoService,
     private toastr: ToastrService,
     public dialog: MatDialog,
@@ -70,6 +70,14 @@ export class TasksComponent implements OnInit {
 
     $(document).attr("title", "TaskAssigner - Task");
 
+    setTimeout(function () {
+      $('table').DataTable({
+        responsive: true,
+
+        "lengthMenu": [5, 10, 25, 50]
+      });
+    }, 100);
+
      this.myDate = new Date(); 
     //this.myDate = this.datepipe.transform(this.myDate, 'yyyy-MM-ddTHH:mm:ss');    
     this.myDate= this.myDate.setMonth(  this.myDate.getMonth() - 1);
@@ -77,7 +85,7 @@ export class TasksComponent implements OnInit {
 
 
    
-     console.log(" this.today", this.myDate);
+    //  console.log(" this.today", this.myDate);
     this.isAssign = false;
     this.isStart = false;
     this.isEnd = false;
@@ -88,9 +96,9 @@ export class TasksComponent implements OnInit {
     this.fn_RefreshTaskList();
 
     var loggedUserdetails = JSON.parse(sessionStorage.getItem('loggedUserName'));
-    console.log(loggedUserdetails);
+    // console.log(loggedUserdetails);
     this.createdmemeber = loggedUserdetails.userName;
-    console.log(this.createdmemeber);
+    // console.log(this.createdmemeber);
 
   }
 
@@ -146,6 +154,18 @@ export class TasksComponent implements OnInit {
     this.fn_RefreshTaskList()
     $("#hide_content").hide();
   }
+
+  Fn_Expand(){
+  
+    $('#task-management').toggleClass('fullscreen'); 
+   // this.Icon='fas fa-compress'
+    if (this.Icon == 'fas fa-expand'){
+      this.Icon='fas fa-compress';
+  } else {
+    this.Icon='fas fa-expand';
+  }
+   !this.sidebar;
+  }
   fn_RefreshTaskList() {
     this.taskService.getTaskList().subscribe((res) => {
       this.taskService.tasks = res as Taskdemo[];
@@ -153,11 +173,17 @@ export class TasksComponent implements OnInit {
     });
   }
   fn_RefreshProjectList() {
-    this.projectService.getProjectList().subscribe((res: any) => {
+
+          // this.projectService.getStartedProjects().subscribe((res: any) => {
+
+   this.projectService.getProjectList().subscribe((res: any) => {
+
       this.projectService.projects = res as Project[];
 
       for (let i = 0; i < res.length; i++) {
-        this.projectList.push(res[i].projectName);
+ 
+          this.projectList.push(res[i].projectName);
+           
 
       }
     });
@@ -195,7 +221,12 @@ export class TasksComponent implements OnInit {
       this.isStart = true;
     }
 
-
+    //----- highlight selecte row-------//
+    $('#tabledata tbody').on('click', 'tr', function() {
+      $('#tabledata tbody > tr').removeClass('high-light');
+      $(this).addClass('high-light');
+    });
+       //----- highlight selecte row-------//
   }
 
   fn_Select(projectId) {
@@ -226,7 +257,6 @@ export class TasksComponent implements OnInit {
   fn_Cancel() {
     this.show = false;
     this.fn_ResetForm();
-
   }
 
   fn_Change2(s: any) {
@@ -366,5 +396,6 @@ export class TasksComponent implements OnInit {
     XLSX.writeFile(wb, "task.xlsx");
 
   }
+
 
 }

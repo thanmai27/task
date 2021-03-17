@@ -138,9 +138,9 @@ router.get('/getprojectdetails/:projectName', async (req, res) => {
 
 
 //project names with status
-router.get('/a/b/c/d', async (req, res)=> {
+router.get('/taskstatus/:projectName/:taskStatus', async (req, res)=> {
 
-    const user = await Taskdemo.find({projectName:req.body.projectName,taskStatus:req.body.taskStatus});
+    const user = await Taskdemo.find({projectName:req.params.projectName,taskStatus:req.params.taskStatus});
    
     if (user) {
       // DO YOUR THING

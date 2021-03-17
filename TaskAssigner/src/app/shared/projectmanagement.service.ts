@@ -28,10 +28,19 @@ export class ProjectmanagementService {
    return this.http.get(this.baseURL+`/totalprojects`,this.httpOptions);
 
   }
+thanmai(projectName,taskStatus)
+{
+  return this.http.get(this.baseURL+`/a/b/c/d`, this.httpOptions);
 
+}
   getProjectList()
   {
     return this.http.get(this.baseURL, this.httpOptions);
+  }
+  getStartedProjects()
+  {
+    return this.http.get(this.baseURL+"/getstartedprojects", this.httpOptions);
+ 
   }
   getOneProjectList(Id)
   {

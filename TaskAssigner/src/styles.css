@@ -142,3 +142,14 @@ width: 100%;
   } 
 }
 */
+
+tr:hover
+{
+  background-color: rgb(207, 219, 231);
+  color: black;
+}
+
+.high-light{
+  background:rgba(0, 0, 255, 0.534) !important;
+  color: white;
+}

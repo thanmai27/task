@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import * as $ from 'jquery';
+import 'datatables.net';
 
 
 
@@ -28,6 +29,7 @@ export class ProjectmanagementComponent implements OnInit {
 
 
   msg;
+  leadName:any;
   show=false;
   hide=false;
   view=false;
@@ -67,12 +69,13 @@ ngOnInit()
   $(document).attr("title", "TaskAssigner - Project");
   this.addmem = false;
 
-  setTimeout(function(){
-    $('table').DataTable( {
-    responsive: true,
-    "lengthMenu": [5, 10, 25,50]
-    } );
-    }, 100);
+  setTimeout(function () {
+    $('tabledata').DataTable({
+      responsive: true,
+
+      "lengthMenu": [5, 10, 25, 50]
+    });
+  }, 100);
 
 
 
@@ -108,9 +111,11 @@ this.Fn_refreshUserList();
   }
 
   fn_RefreshProjectList() {
-    this.projectService.getProjectList().subscribe((res) => {
+    this.projectService.getProjectList().subscribe((res:any) => {
+      
       this.projectService.projects = res as Project[];
 
+      
     });
   }
   Fn_refreshUserList() {
@@ -232,6 +237,8 @@ this.Fn_refreshUserList();
 fn_Cancel()
 {
 this.show = false;
+this.fn_RefreshProjectList();
+
 }
 Fn_Member(event,opt)
 {
@@ -282,6 +289,7 @@ fn_Change(userId,userState)
 
 fn_Map(project:Project)
 {
+  this.projectService.projects =[];
   setTimeout(()=>{      window.scrollTo(0, 500);    },100);
  this.btnValue= $('.btn-warning').val();
 
@@ -393,6 +401,13 @@ fn_Edit(project:Project)
 console.log(   this.AddMemberList);
 
         })
+
+            //----- highlight selecte row-------//
+    $('#tabledata tbody').on('click', 'tr', function() {
+      $('#tabledata tbody > tr').removeClass('high-light');
+      $(this).addClass('high-light');
+    });
+       //----- highlight selecte row-------//
 }
 fn_View(project : Project) {
   setTimeout(() => {
@@ -415,6 +430,12 @@ fn_View(project : Project) {
 
   }
 
+      //----- highlight selecte row-------//
+      $('#tabledata tbody').on('click', 'tr', function() {
+        $('#tabledata tbody > tr').removeClass('high-light');
+        $(this).addClass('high-light');
+      });
+         //----- highlight selecte row-------//
 }
 
 Fn_Expand(){
@@ -427,6 +448,14 @@ Fn_Expand(){
   this.Icon='fas fa-expand';
 }
  !this.sidebar;
+}
+fn_SelectRow(event: any, item: any) 
+{
+// $('  td').click(function(){ $(this).parent().find('td').addClass("high-light");  });
+$('#tabledata tbody').on('click', 'tr', function() {
+  $('#tabledata tbody > tr').removeClass('high-light');
+  $(this).addClass('high-light');
+});
 }
 }
 

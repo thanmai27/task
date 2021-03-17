@@ -107,3 +107,12 @@ th{
     margin-left :10%;
     margin-right: 10%; 
 }
+td{
+ width:150px;
+}
+tr:hover
+{
+    background-color: rgb(207, 219, 231);
+    color: black;
+}
+

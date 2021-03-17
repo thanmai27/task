@@ -38,7 +38,7 @@ import { TaskmanagementComponent } from './home/taskmanagement/taskmanagement.co
 import { LoadingComponent } from './loading/loading.component';
 import { LogoutComponent } from './logout/logout.component';
 import { TasksComponent } from './home/tasks/tasks.component';
-import { ProjectComponent } from './project/project.component';
+import { DboardComponent } from './dboard/dboard.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +56,7 @@ import { ProjectComponent } from './project/project.component';
     LoadingComponent,
     LogoutComponent,
     TasksComponent,
-    ProjectComponent,
+    DboardComponent,
 
   ],
   entryComponents:[TaskpopupComponent],

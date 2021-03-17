@@ -11,7 +11,7 @@
                                 <a data-action="fa-redo" id="redo">
                                    <i class="fas fa-redo fa-clickable" aria-hidden="true" style="text-align: left; margin-left: 94%;color: gray;
                                    font-size: 12px;
-                                   margin-top: 12px;cursor:pointer;" (click)="fn_RefreshTaskList()"></i>
+                                   margin-top: 12px;cursor:pointer;" (click)="fn_RefreshProjectList()"></i>
                                 </a>
                            
                                <a data-action="collapse" id="collapse">
@@ -24,7 +24,7 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <table datatable id = "table" class="card-table table"  >
+                        <table  id = "tabledata" class="card-table table"  >
                             <thead>
                                 <tr>
                                     <th>Project Name</th>
@@ -35,20 +35,19 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let project of projectService.projects">
+                                <tr *ngFor="let project of projectService.projects; let indexOfelement=index;">
+                                    
                                     <td>{{project.projectName}}</td>
                                     <td>{{project.projectState}}</td>
-                                    <td>{{project.projectLead==undefined?'NA':project.projectLead}}</td>
+                                    <td>{{project.projectLead==null?'NA':project.projectLead[0].name }}</td>
+                                    <!-- <ng-container *ngFor="let obj of project.projectLead">
+
+                                    <td>{{obj=={}?'NA':obj.name}}</td> 
+                                </ng-container> -->
+
                                     <td>{{project.createdOn |date:'medium' }}</td>
                                     <td>
-                                        <!-- <button [hidden]="project.projectLead==null?true:false"  value = "EDIT"  [disabled]="project.projectState=='completed' || project.projectState=='cancelled'?true:false" class="btn btn-primary" style="background-color: rgb(211, 21, 211);width: 80px;border: transparent;margin-left: 3px;"
-                                            (click)="fn_Edit(project)"> Edit</button>
-    
-                                        <button [hidden]="project.projectLead==null?false:true"  value = "MAP"  id="{{project._id}}" class="btn btn-warning" style="background-color: rgb(250, 81, 109);width: 80px;border: transparent;margin-left: 3px" (click)="fn_Map(project)"> Map</button>
-    
-                                        <button [disabled]="project.projectLead==null?true:false" class="btn btn-success" style="width: 80px;border: transparent;margin-left: 3px" (click)="fn_View(project)"> View</button>
-     -->
-
+                             
                                         <button [hidden]="project.projectLead==null?true:false" value = "EDIT"   [disabled]="project.projectState=='completed' || project.projectState=='cancelled'?true:false" class=" btn btn-primary  btn-xs" id=edit (click)="fn_Edit(project)" style="background-color:rgba(0, 0, 190, 0.856);height:auto;width:auto;" >
                                             <mat-icon aria-hidden="false" aria-label="Example Edit icon" title=Edit style="color:white;font-size:large;margin-left:auto;margin-left:auto;display:block !important">edit</mat-icon>
                                         </button>

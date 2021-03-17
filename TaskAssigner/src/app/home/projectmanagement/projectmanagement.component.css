@@ -30,3 +30,12 @@ th{
     background-color:#0f4c75 ;
   color:white;
   }
+  td{
+    width:150px;
+   }
+
+tr:hover
+{
+    background-color: rgb(207, 219, 231);
+    color: black;
+}
