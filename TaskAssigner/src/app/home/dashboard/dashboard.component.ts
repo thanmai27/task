@@ -124,9 +124,20 @@ piechartdata:any;
               xAxes: [{
                   stacked: true
               }],
-              yAxes: [{
-                  stacked: true
-              }]
+    
+
+              yAxes: [{​​​​​​​​
+              display:true,
+              ticks: {​​​​​​​​
+              
+              beginAtZero:true,
+              min:0,
+              max:10,
+              stepSize:1
+                              }​​​​​​​​
+                            }​​​​​​​​]
+              
+              
           }
             }
           });

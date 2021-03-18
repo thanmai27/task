@@ -58,6 +58,9 @@
 <form #myform="ngForm" enctype="multipart/form-data" ngNativeValidate>
 
     <div *ngIf="show">
+        <h2  [hidden]="usermodel.email==''?false:true"  style="margin-left: 50%;">Add New User</h2>
+        <h2  [hidden]="usermodel.email==''?true:false"  style="margin-left: 50%;">Edit the User</h2>
+
 
         <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="usermodel._id">
 

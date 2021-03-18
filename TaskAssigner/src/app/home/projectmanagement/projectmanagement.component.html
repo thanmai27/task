@@ -24,7 +24,7 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <table  id = "tabledata" class="card-table table"  >
+                        <table id = "tabledata" class="card-table table"  datatable >
                             <thead>
                                 <tr>
                                     <th>Project Name</th>
@@ -39,7 +39,7 @@
                                     
                                     <td>{{project.projectName}}</td>
                                     <td>{{project.projectState}}</td>
-                                    <td>{{project.projectLead==null?'NA':project.projectLead[0].name }}</td>
+                                    <td>{{project.projectLead==null?'NA':project.projectLead}}</td>
                                     <!-- <ng-container *ngFor="let obj of project.projectLead">
 
                                     <td>{{obj=={}?'NA':obj.name}}</td> 
@@ -74,8 +74,9 @@
         <!-- /.row -->
     </div>
     <form #myform="ngForm" enctype="multipart/form-data" ngNativeValidate>
-
         <div *ngIf="show">
+            <h2  [hidden]="projectmodel.projectName==''?false:true"  style="margin-left: 50%;">Add New Project</h2>
+            <h2  [hidden]="projectmodel.projectName==''?true:false"  style="margin-left: 50%;">Edit the Project</h2>
     
             <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="projectmodel._id">
     
@@ -159,10 +160,12 @@
     
                     <input type="hidden" name="ismap" #ismap="ngModel" [(ngModel)]="projectmodel.ismap">
     
-                    <div style="margin-top: 2%;" class="col-md-12  text-right">
-                        <button id="btn_save" class="btn btn-success" [disabled]="!myform.valid" (click)="fn_Save(myform)">Save</button> &nbsp;
-                        <button class="btn btn-danger" (click)="fn_Cancel(myform)">Cancel</button>
-    
+                    <div style="margin-top: 2%;" class="col-md-12  text-center">
+                        <!-- <button id="btn_save" class="btn btn-success" [disabled]="!myform.valid" (click)="fn_Save(myform)">Save</button> &nbsp;
+                        <button class="btn btn-danger" (click)="fn_Cancel(myform)">Cancel</button> -->
+                        <button  style="width: 100px;" id="btn_save" class="btn btn-success" [disabled]="!myform.valid" (click)="fn_Save(myform)">Save</button> &nbsp;
+                        <button  style="width: 100px;" class="btn btn-warning" (click)="fn_Cancel(myform)">Cancel</button>
+        
                     </div>
     
                 </div>

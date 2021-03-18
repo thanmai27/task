@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import * as $ from 'jquery';
-import 'datatables.net';
 
+import 'datatables.net';
 
 
 import { Project } from 'src/app/model/project.model';
@@ -44,11 +44,13 @@ export class ProjectmanagementComponent implements OnInit {
   arr:any = [];
   uId:any;
 isChecked:any;
+projectDate:any =[];
+
 
   teamleadoption:any;
   teamemberoption:any;
   member;
-  dtOptions: DataTables.Settings = {};
+  // dtOptions: DataTables.Settings = {};
   
   //multi-dropdown
   dropdownList :any= [];
@@ -113,10 +115,12 @@ this.Fn_refreshUserList();
   fn_RefreshProjectList() {
     this.projectService.getProjectList().subscribe((res:any) => {
       
-      this.projectService.projects = res as Project[];
-
+      this.projectService.projects = res ;
+    // this.projectDate = res
       
     });
+    console.log(  "    this.projectDate",  this.projectDate);
+    
   }
   Fn_refreshUserList() {
     this.userService.getUserList().subscribe((res) => {
@@ -289,7 +293,10 @@ fn_Change(userId,userState)
 
 fn_Map(project:Project)
 {
-  this.projectService.projects =[];
+  // console.log(  this.projectService.projects[0].projectLead)
+  // console.log( project.projectLead)
+
+  // this.projectService.projects =[]
   setTimeout(()=>{      window.scrollTo(0, 500);    },100);
  this.btnValue= $('.btn-warning').val();
 
@@ -336,6 +343,12 @@ fn_Map(project:Project)
     
   })
 
+              //----- highlight selecte row-------//
+              $('#tabledata tbody').on('click', 'tr', function() {
+                $('#tabledata tbody > tr').removeClass('high-light');
+                $(this).addClass('high-light');
+              });
+                 //----- highlight selecte row-------//
 
 }
 

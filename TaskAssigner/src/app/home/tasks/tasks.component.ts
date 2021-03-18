@@ -30,7 +30,8 @@ export class TasksComponent implements OnInit {
   taskmodel = new Taskdemo();
   pp = false;
   disableSelect = new FormControl(false);
-  myDate:any;
+  minDate:any;
+  maxDate:any;
   pro_id: any;
   dtOptions: any = {};
   showModal: boolean;
@@ -78,14 +79,18 @@ Icon='fas fa-expand'
       });
     }, 100);
 
-     this.myDate = new Date(); 
+     this.minDate = new Date(); 
     //this.myDate = this.datepipe.transform(this.myDate, 'yyyy-MM-ddTHH:mm:ss');    
-    this.myDate= this.myDate.setMonth(  this.myDate.getMonth() - 1);
-    this.myDate = this.datepipe.transform(this.myDate, 'yyyy-MM-ddTHH:mm:ss');    
+    this.minDate= this.minDate.setMonth(  this.minDate.getMonth() - 1);
+    this.minDate = this.datepipe.transform(this.minDate, 'yyyy-MM-ddTHH:mm:ss');    
 
+    //this.myDate = this.datepipe.transform(this.myDate, 'yyyy-MM-ddTHH:mm:ss');  
+    this.maxDate = new Date(); 
+  
+    this.maxDate= this.maxDate.setMonth(  this.maxDate.getMonth() + 3);
+    this.maxDate = this.datepipe.transform(this.maxDate, 'yyyy-MM-ddTHH:mm:ss'); 
 
    
-    //  console.log(" this.today", this.myDate);
     this.isAssign = false;
     this.isStart = false;
     this.isEnd = false;
@@ -190,6 +195,11 @@ Icon='fas fa-expand'
   }
   fn_Edit(task: Taskdemo) {
     $("#hide_content").show();
+    this.fn_Change2(task.taskStatus)
+    this.options = [];
+
+    this.selected=task.taskStatus
+    this.options.push(this.selected)
     console.log(task)
     this.pp = true;
     this.taskmodel = task;
@@ -207,13 +217,12 @@ Icon='fas fa-expand'
     this.teamMember.push(task.teamMember)
 
 
-    this.selected = task.taskStatus;
-    this.options = [];
-
 
     console.log(this.taskmodel.statusList.length)
 
     for (let i = 0; i < this.taskmodel.statusList.length; i++) {
+     // this.options.push(task.taskStatus)
+
       this.options.push(this.taskmodel.statusList[i])
     }
     if (task.taskStatus == 'Started' && task.startOn != null) {
@@ -260,6 +269,7 @@ Icon='fas fa-expand'
   }
 
   fn_Change2(s: any) {
+
     console.log(s);
     console.log(this.taskmodel._id)
 

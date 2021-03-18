@@ -22,9 +22,9 @@ width:100%;
 }
 .pg-wrapper
 {
-    margin-top:6%;
+    margin-top:6%  !important;
     margin-left :6%;
-    margin-right: 17%; 
+    margin-right: 5%; 
 }
 #user-management.fullscreen{
     z-index: 9999; 

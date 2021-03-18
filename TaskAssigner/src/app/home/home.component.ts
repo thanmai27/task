@@ -57,7 +57,7 @@ fn_Click()
   let ob = new TasksComponent(this.projectService,this.taskService,this.toastr,this.dialog,this.datepipe);
   ob.fn_RefreshTaskList();
   ob.Fn_AddTask();
-
+  ob.fn_Cancel();
 
 }
 
