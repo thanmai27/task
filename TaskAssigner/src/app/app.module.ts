@@ -39,6 +39,7 @@ import { LoadingComponent } from './loading/loading.component';
 import { LogoutComponent } from './logout/logout.component';
 import { TasksComponent } from './home/tasks/tasks.component';
 import { DboardComponent } from './dboard/dboard.component';
+import { ProjectComponent } from './project/project.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { DboardComponent } from './dboard/dboard.component';
     LogoutComponent,
     TasksComponent,
     DboardComponent,
+    ProjectComponent,
 
   ],
   entryComponents:[TaskpopupComponent],

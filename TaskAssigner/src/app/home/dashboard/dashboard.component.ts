@@ -120,25 +120,21 @@ piechartdata:any;
             },
             responsive: true,
       
-            scales: {
-              xAxes: [{
+            scales:
+            {
+              xAxes:
+              [{
                   stacked: true
               }],
-    
-
-              yAxes: [{​​​​​​​​
+  
+              yAxes: 
+              [{​​​​​​​​
               display:true,
-              ticks: {​​​​​​​​
-              
-              beginAtZero:true,
-              min:0,
-              max:10,
-              stepSize:1
-                              }​​​​​​​​
-                            }​​​​​​​​]
-              
-              
-          }
+              ticks: {​​​​​​​​ beginAtZero:true, min:0,max:10,stepSize:1 }​​​​​​​​
+             }​​​​​​​​]
+                    
+            }
+            
             }
           });
         

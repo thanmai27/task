@@ -12,6 +12,7 @@ import { UserManagementComponent } from './home/user-management/user-management.
 import { LoadingComponent } from './loading/loading.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
+import { ProjectComponent } from './project/project.component';
 import { AuthGuard } from './shared/auth.guard';
 import { TableComponent } from './table/table.component';
 
@@ -43,7 +44,9 @@ children:[{path:'',component:TasksComponent}]},
   {path:'table', component:TableComponent},
   {path:'verify', component:LoadingComponent},
   {path:'logout', component:LogoutComponent},
-  {path:'dboard',component:DboardComponent}
+  {path:'dboard',component:DboardComponent},
+  {path:'project',component:ProjectComponent}
+
 
 ];
 

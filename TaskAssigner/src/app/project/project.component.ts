@@ -13,11 +13,11 @@ import { User } from 'src/app/shared/usermanagement.model';
 export const EDIT="edit";
 export const MAP="map";
 @Component({
-  selector: 'app-projectmanagement',
-  templateUrl: './projectmanagement.component.html',
-  styleUrls: ['./projectmanagement.component.css']
+  selector: 'app-project',
+  templateUrl: './project.component.html',
+  styleUrls: ['./project.component.css']
 })
-export class ProjectmanagementComponent implements OnInit {
+export class ProjectComponent implements OnInit {
 
   msg;
   leadName:any;
@@ -35,8 +35,7 @@ export class ProjectmanagementComponent implements OnInit {
   arr:any = [];
   uId:any;
 isChecked:any;
-projectDate:any =[];
-
+projectData:any =[];
 
   teamleadoption:any;
   teamemberoption:any;
@@ -104,13 +103,25 @@ this.Fn_refreshUserList();
   }
 
   fn_RefreshProjectList() {
+    debugger;
+    let arr =[]
+
     this.projectService.getProjectList().subscribe((res:any) => {
       
       this.projectService.projects = res ;
-    // this.projectDate = res
+   
+      console.log(  "   this.projectService.projects ", this.projectService.projects );
+
+      for(let i=0;i<res.length;i++)
+      {
+        
+          arr.push(res[i].projectLead)
+        
+
+      }
+      console.log(arr);
       
     });
-    console.log(  "    this.projectDate",  this.projectDate);
     
   }
   Fn_refreshUserList() {
@@ -345,24 +356,24 @@ fn_Map(project:Project)
 
 fn_Edit(project:Project)
 {
-  
+
   this.addmem= true
- // this.fn_Inactive();
   this.btnValue =''
    this.teamleadList=[];
  this.teammemberList=[];
  this.btnValue= $('.btn-primary').val();
 
- 
-  setTimeout(()=>{ window.scrollTo(0, 500);    },100)
+ console.log("  this.btnValue",  this.btnValue)
+
+  setTimeout(()=>{ window.scrollTo(0, 2000);    },100)
   this.projectmodel = project;
 
   
 
 
    this.teamleadList  =    project.projectLead;
-   this.projectmodel.projectLead =this.teamleadList[0].UserId
 
+   this.projectmodel.projectLead =this.teamleadList[0].UserId    //required for binding
   this.teammemberList = project.projectMembers;
   console.log();
   this.projectmodel.projectMembers = [];
@@ -388,12 +399,6 @@ fn_Edit(project:Project)
  
 
            this.AddMemberList.push(res[i]);
-            console.log("add:"+this.AddMemberList[i]._id+this.AddMemberList[i].name);
-            
-       
-       
-      
-
            
           } 
 
@@ -413,6 +418,7 @@ console.log(   this.AddMemberList);
     });
        //----- highlight selecte row-------//
 }
+
 fn_View(project : Project) {
   setTimeout(() => {
       window.scrollTo(0, 500);
@@ -462,4 +468,3 @@ $('#tabledata tbody').on('click', 'tr', function() {
 });
 }
 }
-

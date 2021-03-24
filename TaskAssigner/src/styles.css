@@ -150,6 +150,6 @@ tr:hover
 }
 
 .high-light{
-  background:rgba(0, 0, 255, 0.534) !important;
-  color: white;
+  background:rgb(207, 219, 231) !important;
+  color: black;
 }
